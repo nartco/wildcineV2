@@ -8,6 +8,8 @@ import MovieDetails from "./scenes/MovieDetails";
 import Upcoming from "./scenes/Upcoming";
 import Navbar from "./components/Navbar";
 
+import './css/App.css'
+
 export default function App() {
   return (
     <Router>

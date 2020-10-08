@@ -1,17 +1,96 @@
-header {
-  display: flex;
-  flex-direction: row;
+@import url("https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap");
+nav {
+  background-color: black;
+  padding: 5px, 40px;
 }
 
 .navLink {
   flex: 1;
   list-style-type: none;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
-li {
-    padding-right: 40px;
-    font-size: 1.4rem;
+.navLink li.logo {
+  font-family: "Fugaz One", cursive;
+  flex: 1;
+  font-size: 1.2rem;
+  margin: 6px 48px;
+}
+
+.navLink li.link {
+  padding: 15 0px;
+  cursor: pointer;
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+  width: auto;
+  margin: 0 16px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  order: 3;
+}
+
+.navLink li.link:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  width: 100%;
+  bottom: -9px;
+  height: 2px;
+  background: #26c485;
+  opacity: 0;
+  transition: all 0.2s linear;
+}
+
+.navLink li.link:hover:after {
+  opacity: 1;
+  bottom: -4px;
+}
+
+.navSection:hover {
+  color: #26c485;
+  transition: 0.4s;
+}
+
+.navLink li.btn {
+  margin: 6px;
+  display: none;
+}
+
+@media all and (max-width: 900px) {
+  nav {
+    padding: 5px 30px;
+  }
+  .navLink li.logo {
+    text-align: center;
+    margin-left: 80px;
+  }
+  .navLink li.link {
+    width: 100%;
+    margin: 30px 0;
+  }
+  .navLink li.link:hover {
+    box-shadow: 0 0 5px #26c485;
+  }
+  .navLink li.link:after {
+    box-shadow: 0 0 5px #26c485;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  .navLink li.btn {
+    cursor: pointer;
+    display: block;
+  }
+  .hidden {
+    display: none;
+  }
+}
+
+@media all and (max-width: 700px) {
+  .titleLogo {
+    display: none;
+  }
 }
