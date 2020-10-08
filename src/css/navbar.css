@@ -1,0 +1,17 @@
+header {
+  display: flex;
+  flex-direction: row;
+}
+
+.navLink {
+  flex: 1;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+li {
+    padding-right: 40px;
+    font-size: 1.4rem;
+}
