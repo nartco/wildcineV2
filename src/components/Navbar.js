@@ -5,11 +5,10 @@ import Theaters from "@material-ui/icons/Theaters";
 import Clear from "@material-ui/icons/Clear";
 
 import "../css/navbar.css";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
-
-  console.log(show);
 
   return (
     <nav>
@@ -27,6 +26,9 @@ const Navbar = () => {
             />
             <h1 className='titleLogo'>WildCiné</h1>
           </NavLink>
+        </li>
+        <li className={show ? "search" : "search hidden"}>
+          <SearchBar open={show} />
         </li>
         <li className={show ? "link" : "link hidden"}>
           <NavLink style={{ textDecoration: "none", color: "#fff" }} to='/'>

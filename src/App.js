@@ -8,7 +8,8 @@ import MovieDetails from "./scenes/MovieDetails";
 import Upcoming from "./scenes/Upcoming";
 import Navbar from "./components/Navbar";
 
-import './css/App.css'
+import "./css/App.css";
+import SearchBar from "./components/SearchBar";
 
 export default function App() {
   return (

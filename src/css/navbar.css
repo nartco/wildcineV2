@@ -11,13 +11,15 @@ nav {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  padding-bottom: 5px;
 }
 
 .navLink li.logo {
   font-family: "Fugaz One", cursive;
   flex: 1;
   font-size: 1.2rem;
-  margin: 6px 48px;
+  margin: auto 48px;
+  margin-top: 5px;
 }
 
 .navLink li.link {
@@ -56,17 +58,32 @@ nav {
 }
 
 .navLink li.btn {
-  margin: 6px;
+  margin: 6px 0 0 0;
   display: none;
+}
+
+.search {
+  position: relative;
+  right: 20vw;
+  top: -1.1rem;
 }
 
 @media all and (max-width: 900px) {
   nav {
     padding: 5px 30px;
   }
+  .search {
+    padding: 20px 10vw 20px 10vw;
+    order: 4;
+  }
+  .titleLogo {
+    font-size: 23px;
+    margin-top: 5px;
+  }
   .navLink li.logo {
     text-align: center;
     margin-left: 80px;
+    margin-top: 0;
   }
   .navLink li.link {
     width: 100%;
@@ -89,8 +106,8 @@ nav {
   }
 }
 
-@media all and (max-width: 700px) {
-  .titleLogo {
-    display: none;
+@media all and (min-width: 1300px) {
+  .search {
+    right: 30vw;
   }
 }
