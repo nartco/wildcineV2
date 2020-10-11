@@ -28,7 +28,7 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li className={show ? "search" : "search hidden"}>
-          <SearchBar open={show} />
+          <SearchBar />
         </li>
         <li className={show ? "link" : "link hidden"}>
           <NavLink style={{ textDecoration: "none", color: "#fff" }} to='/'>
@@ -57,6 +57,14 @@ const Navbar = () => {
             to='/favorite'
           >
             <p className='navSection'>FAVORITE</p>
+          </NavLink>
+        </li>
+        <li className={show ? "link searchMobile" : "link searchMobile hidden"}>
+          <NavLink
+            style={{ textDecoration: "none", color: "#fff" }}
+            to='/favorite'
+          >
+            <p className='navSection'>SEARCH</p>
           </NavLink>
         </li>
         <li className='btn' onClick={() => setShow(!show)}>

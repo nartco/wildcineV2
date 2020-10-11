@@ -67,14 +67,19 @@ nav {
   right: 20vw;
   top: -1.1rem;
 }
+.searchMobile {
+  display: none
+}
 
 @media all and (max-width: 900px) {
   nav {
     padding: 5px 30px;
   }
   .search {
-    padding: 20px 10vw 20px 10vw;
-    order: 4;
+   display: none;
+  }
+  .searchMobile {
+    display: block
   }
   .titleLogo {
     font-size: 23px;
