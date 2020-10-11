@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./scenes/Home";
 import Discover from "./scenes/Discover";
 import Search from "./scenes/Search";
@@ -9,7 +9,6 @@ import Upcoming from "./scenes/Upcoming";
 import Navbar from "./components/Navbar";
 
 import "./css/App.css";
-import SearchBar from "./components/SearchBar";
 
 export default function App() {
   return (
