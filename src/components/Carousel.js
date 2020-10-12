@@ -11,9 +11,10 @@ const CarouselMovies = props => {
   const displayMovie = slides.map(movie => {
     console.log(movie);
     return (
-      <div className="imgSlideContainer">
+      <div className='imgSlideContainer'>
+        
         <img
-          src={"https://image.tmdb.org/t/p/w400/" + movie.poster_path}
+          src={"https://image.tmdb.org/t/p/w500/" + movie.poster_path}
           alt={movie.original_title}
           className='imgMovie'
         />
@@ -29,6 +30,7 @@ const CarouselMovies = props => {
       <Carousel
         additionalTransfrom={0}
         arrows
+        itemClass='slides'
         autoPlay={true}
         autoPlaySpeed={2100}
         centerMode={true}

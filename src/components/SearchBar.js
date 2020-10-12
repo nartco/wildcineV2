@@ -7,7 +7,7 @@ const SearchBar = props => {
     <div className='container'>
       <a className='searchBtn'>
         <i className="btnIcon ">
-          <Search className="btnIcon" />
+          <Search className="btnIcon"  style={{fontSize: 21, marginTop: 2}}/>
         </i>
       </a>
       <input type='text' name='' className='searchTxt' placeholder='Search...' />

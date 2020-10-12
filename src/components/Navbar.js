@@ -14,24 +14,22 @@ const Navbar = () => {
     <nav>
       <ul className='navLink'>
         <li className='logo'>
-          <NavLink to='/' style={{ textDecoration: "none", color: "#26C485" }}>
-            <Theaters
-              style={{
-                position: "absolute",
-                top: "0.5rem",
-                left: 17,
-                fontSize: 31,
-                color: "#26C485"
-              }}
-            />
-            <h1 className='titleLogo'>WildCiné</h1>
-          </NavLink>
+          <Theaters
+            style={{
+              position: "absolute",
+              top: "0.5rem",
+              left: 17,
+              fontSize: 31,
+              color: "#26C485"
+            }}
+          />
+          <h1 className='titleLogo'>WildCiné</h1>
         </li>
         <li className={show ? "search" : "search hidden"}>
           <SearchBar />
         </li>
         <li className={show ? "link" : "link hidden"}>
-          <NavLink style={{ textDecoration: "none", color: "#fff" }} to='/'>
+          <NavLink style={{ textDecoration: "none", color: "#fff"}} to='/'>
             <p className='navSection'>HOME</p>
           </NavLink>
         </li>

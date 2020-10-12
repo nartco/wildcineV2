@@ -1,21 +1,25 @@
 .imgMovie {
-    width: 70%;
-    height: 70%;
-    /* margin-left: 80px; */
+  width: 70%;
+  height: 70%;
+  min-height: 27vw;
 }
 
-.movieTitle{
-    color: #26c485;
-    margin: auto auto;
-    text-align: center
+.movieTitle {
+  color: #26c485;
+  margin: auto auto;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.7em;
 }
 
-.carouselContainer{
-    margin-top: 20px;
+.carouselContainer {
+  margin-top: 20px;
 }
 
-.imgSlideContainer{
-    margin-left: 20px
+.imgSlideContainer {
+  text-align: center;
 }
 
-/* changer taille du container pour que l'image fit par rapport au parent */
+.react-multiple-carousel__arrow::before {
+  color: #26c485;
+}
