@@ -19,8 +19,8 @@ const Navbar = () => {
               style={{
                 position: "absolute",
                 top: "0.5rem",
-                left: 10,
-                fontSize: 35,
+                left: 17,
+                fontSize: 31,
                 color: "#26C485"
               }}
             />

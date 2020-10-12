@@ -32,9 +32,12 @@ const Home = () => {
   return (
     <div>
       {isLoading ? (
-        <img src={'../../public/logo512.png'} />
+        <img src='../../public/logo512.png' />
       ) : (
-        <Carousel slides={movies} />
+        <div>
+          <h1>Top Rated</h1>
+          <Carousel slides={movies} />
+        </div>
       )}
     </div>
   );

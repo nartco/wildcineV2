@@ -6,8 +6,8 @@ const SearchBar = props => {
   return (
     <div className='container'>
       <a className='searchBtn'>
-        <i>
-          <Search />
+        <i className="btnIcon ">
+          <Search className="btnIcon" />
         </i>
       </a>
       <input type='text' name='' className='searchTxt' placeholder='Search...' />
