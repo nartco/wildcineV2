@@ -1,11 +1,11 @@
 import React from 'react'
 
 const Discover = () => {
-    return (
-        <div>
-            <p>Discover</p>
-        </div>
-    )
+  return (
+    <div>
+      
+    </div>
+  )
 }
 
 export default Discover

@@ -6,10 +6,8 @@ import "../css/carousel.css";
 
 const CarouselMovies = props => {
   let { slides } = props;
-  console.log(slides);
 
   const displayMovie = slides.map(movie => {
-    console.log(movie);
     return (
       <div className='imgSlideContainer'>
         

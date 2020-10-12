@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+
 import Carousel from "../components/Carousel";
 import "../css/home.css";
 
-const axios = require("axios").default;
 
 const Home = () => {
   const [errors, setErrors] = useState([]);
