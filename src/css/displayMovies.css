@@ -1,18 +1,59 @@
 .displayMoviesContainer {
-    width: 20vw;
-    font-size: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  width: 20vw;
+  font-size: 0.5rem;
 }
 
 .displayImage {
- width: 80%;
- height: 80%;
+  width: 80%;
+  height: 80%;
 }
 
 .containerDisplay {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    flex-wrap: wrap;
-    text-align: center;
-    margin: 100px auto
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  text-align: center;
+  margin: 100px auto;
+}
+
+.displayTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 30px;
+  color: #26c485;
+}
+
+.titleContainer {
+  height: 50px;
+}
+
+.overlay {
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  bottom: calc(100% - 36em);
+  left: 10%;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  width: 80%;
+  height: 0;
+  transition: 0.5s ease;
+}
+
+.displayMoviesContainer:hover .overlay {
+  height: 80%;
+}
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
