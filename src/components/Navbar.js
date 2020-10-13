@@ -36,7 +36,7 @@ const Navbar = () => {
         <li className={show ? "link" : "link hidden"}>
           <NavLink
             style={{ textDecoration: "none", color: "#fff" }}
-            to='/discover'
+            to='/discover/1'
           >
             <p className='navSection'>DISCOVER</p>
           </NavLink>
@@ -44,7 +44,7 @@ const Navbar = () => {
         <li className={show ? "link" : "link hidden"}>
           <NavLink
             style={{ textDecoration: "none", color: "#fff" }}
-            to='/upcoming'
+            to='/upcoming/1'
           >
             <p className='navSection'>UPCOMING</p>
           </NavLink>
