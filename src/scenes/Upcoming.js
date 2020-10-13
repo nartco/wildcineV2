@@ -37,8 +37,7 @@ const Discover = () => {
     <Grid container style={{ marginTop: "10vh" }} spacing={1}>
       {/* <div className='containerDisplay'> */}
       {isLoading ? null : <DisplayMovies movies={movies} />}
-      <button onClick={() => setIndex(index + 1)}>+</button>
-      <button onClick={() => setIndex(index - 1)}>-</button>
+      <Link to="/upcoming"></Link>
       {/* </div> */}
     </Grid>
   );

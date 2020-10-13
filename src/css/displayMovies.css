@@ -42,6 +42,9 @@
   .displayTitle {
     margin-bottom: 10px;
   }
+  .overlay {
+    display: none;
+  }
 }
 
 @media screen and (min-width: 480px) and (max-width: 599px) {
@@ -65,17 +68,17 @@
   font-family: Arial, Helvetica, sans-serif;
   position: absolute;
   bottom: 0;
-  left: 10%;
+  left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  width: 80%;
+  width: 100%;
   height: 0;
   transition: 0.5s ease;
 }
 
-.displayMoviesContainer:hover .overlay {
-  height: 80%;
+.movieContainers:hover .overlay {
+  height: 90%;
 }
 .text {
   color: white;
