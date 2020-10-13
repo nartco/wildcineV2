@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -33,14 +34,16 @@ const Discover = () => {
   console.log(index);
 
   return (
-    <div className='containerDisplay'>
+    <Grid container style={{ marginTop: "10vh" }} spacing={1}>
+      {/* <div className='containerDisplay'> */}
       {isLoading ? null : <DisplayMovies movies={movies} />}
       <button onClick={() => setIndex(index + 1)}>+</button>
       <button onClick={() => setIndex(index - 1)}>-</button>
-    </div>
+      {/* </div> */}
+    </Grid>
   );
 };
 
 export default Discover;
 
-// passer l'index dans les params de l'url 
+// passer l'index dans les params de l'url

@@ -1,28 +1,21 @@
-.displayMoviesContainer {
-  cursor: pointer;
-  position: relative;
+.movieContainers {
+  margin: 10px auto;
   width: 20vw;
-  font-size: 0.5rem;
+  height: 100%;
 }
 
 .displayImage {
-  width: 80%;
-  height: 80%;
-}
-
-.containerDisplay {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  flex-wrap: wrap;
-
+  display: block;
+  margin: auto auto;
   text-align: center;
-  margin: 100px auto;
+  width: 100%;
 }
 
 .displayTitle {
   font-family: Arial, Helvetica, sans-serif;
   margin-bottom: 30px;
+  font-size: 0.9rem;
+  text-align: center;
   color: #26c485;
 }
 
@@ -30,6 +23,30 @@
   height: 50px;
 }
 
+.UpcomingGrid {
+  margin-top: 20px;
+}
+
+@media all and (max-width: 900px) {
+  .displayTitle {
+    font-size: 0.7rem;
+  }
+  .titleContainer {
+    height: 40px;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .movieContainers{
+    width: 70vw;
+    height: 70%;
+  }
+  .titleContainer {
+    height: 30px;
+  }
+}
+
+/* 
 .overlay {
   font-family: Arial, Helvetica, sans-serif;
   position: absolute;
@@ -56,4 +73,4 @@
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   text-align: center;
-}
+} */

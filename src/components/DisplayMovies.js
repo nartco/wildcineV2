@@ -8,8 +8,8 @@ const DisplayMovie = props => {
   const { movies } = props;
   console.log(movies);
   return movies.map((movie, i) => (
-    <Grid item xs={12} sm={6} lg={3} key={i} spacing={'30px'}>
-      <div className='displayMoviesContainer'>
+    <Grid item xs={12} sm={3} lg={3} key={i}>
+      <div className='movieContainers'>
         <Link to='/movie' style={{ textDecoration: "none" }}>
           <div className='titleContainer'>
             <h1 className='displayTitle'>{movie.title} </h1>
@@ -23,11 +23,9 @@ const DisplayMovie = props => {
             alt={movie.original_title}
             className='displayImage'
           />
-          <div className='overlay'>
-            <div className='text'>
-              {movie.release_date.replaceAll("-", "/")}
-            </div>
-          </div>
+          {/* <div className='overlay'>
+          <div className='text'>{movie.release_date.replaceAll("-", "/")}</div>
+        </div> */}
         </Link>
       </div>
     </Grid>
