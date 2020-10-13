@@ -23,9 +23,11 @@ const DisplayMovie = props => {
             alt={movie.original_title}
             className='displayImage'
           />
-          {/* <div className='overlay'>
-          <div className='text'>{movie.release_date.replaceAll("-", "/")}</div>
-        </div> */}
+          <div className='overlay'>
+            <div className='text'>
+              {movie.release_date.replaceAll("-", "/")}
+            </div>
+          </div>
         </Link>
       </div>
     </Grid>
