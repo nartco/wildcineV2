@@ -104,4 +104,8 @@
   color: #26c485;
   width: 20vw;
   height: 2rem;
+  
+}
+.buttonContainer{
+  margin: 4vw auto;
 }

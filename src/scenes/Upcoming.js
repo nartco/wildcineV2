@@ -35,14 +35,29 @@ const Discover = () => {
   }, [getMovie, page]);
 
   return (
-    <Grid container style={{ marginTop: "10vh"}} spacing={1}>
+    <Grid container style={{ marginTop: "10vh" }} spacing={1}>
       {isLoading ? null : <DisplayMovies movies={movies} />}
-      <Link style={{ textDecoration: "none" }} to={`/upcoming/${page - 1}`}>
-        <button className='pageButtons'>prev</button>
-      </Link>
-      <Link style={{ textDecoration: "none" }} to={`/upcoming/${page + 1}`}>
-        <button className='pageButtons'>next</button>
-      </Link>
+      <div className='buttonContainer'>
+        <Link
+          style={{
+            textDecoration: "none"
+          }}
+          to={`/upcoming/${page - 1}`}
+        >
+          <button className='pageButtons'>prev</button>
+        </Link>
+        <button disabled={true} className='pageButtons'>
+          {page}
+        </button>
+        <Link
+          style={{
+            textDecoration: "none"
+          }}
+          to={`/upcoming/${page + 1}`}
+        >
+          <button className='pageButtons'>next</button>
+        </Link>
+      </div>
     </Grid>
   );
 };
