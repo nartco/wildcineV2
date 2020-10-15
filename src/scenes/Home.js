@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Carousel from "../components/Carousel";
 import "../css/home.css";
+import LoaderCustom from "../components/Loader";
 
 
 const Home = () => {
@@ -49,7 +50,7 @@ const Home = () => {
   return (
     <div>
       {isLoading ? (
-        <img src='../../public/logo512.png' alt="logo" />
+        <LoaderCustom />
       ) : (
         <div>
           <Link style={{ textDecoration: "none", color: "#26c485" }} to='/'>

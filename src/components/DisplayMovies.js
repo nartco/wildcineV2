@@ -6,7 +6,13 @@ import "../css/displayMovies.css";
 
 const DisplayMovie = props => {
   const { movies } = props;
-  console.log(movies);
+  if (movies.length === 0) {
+    return (
+      <div className='movieContainers'>
+        <h1 className='genderTitle'>No result</h1>
+      </div>
+    );
+  }
   return movies.map((movie, i) => (
     <Grid item xs={12} sm={3} lg={3} key={i}>
       <div className='movieContainers'>

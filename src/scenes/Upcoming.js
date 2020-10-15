@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 import DisplayMovies from "../components/DisplayMovies";
+import LoaderCustom from "../components/Loader";
 
 const Upcoming = () => {
   let { page } = useParams();
@@ -35,30 +36,38 @@ const Upcoming = () => {
   }, [getMovie, page]);
 
   return (
-    <Grid container style={{ marginTop: "10vh" }} spacing={1}>
-      {isLoading ? null : <DisplayMovies movies={movies} />}
-      <div className='buttonContainer'>
-        <Link
-          style={{
-            textDecoration: "none"
-          }}
-          to={`/upcoming/${page - 1}`}
-        >
-          <button className='pageButtons'>prev</button>
-        </Link>
-        <button disabled={true} className='pageButtons'>
-          {page}
-        </button>
-        <Link
-          style={{
-            textDecoration: "none"
-          }}
-          to={`/upcoming/${page + 1}`}
-        >
-          <button className='pageButtons'>next</button>
-        </Link>
-      </div>
-    </Grid>
+    <React.Fragment>
+      {isLoading ? (
+        <LoaderCustom />
+      ) : (
+        <React.Fragment>
+          <Grid container style={{ marginTop: "10vh" }} spacing={1}>
+            <DisplayMovies movies={movies} />
+          </Grid>
+          <div className='buttonContainer'>
+            <Link
+              style={{
+                textDecoration: "none"
+              }}
+              to={`/upcoming/${page - 1}`}
+            >
+              <button className='pageButtons'>prev</button>
+            </Link>
+            <button disabled={true} className='pageButtons'>
+              {page}
+            </button>
+            <Link
+              style={{
+                textDecoration: "none"
+              }}
+              to={`/upcoming/${page + 1}`}
+            >
+              <button className='pageButtons'>next</button>
+            </Link>
+          </div>
+        </React.Fragment>
+      )}
+    </React.Fragment>
   );
 };
 

@@ -73,7 +73,7 @@
   background-color: black;
   color: #26c485;
   border-radius: 20px;
-  width: 40vw;
+  width: 54vw;
   height: 6vh;
   text-align: center;
 }
@@ -83,6 +83,27 @@
   color: #26c48581;
 }
 
+.settingsButton {
+  text-align: center;
+  margin: 10vh auto -7vh auto;
+}
+
+.settingsButton > button {
+  font-family: "Open Sans", sans-serif;
+  margin: auto auto;
+  display: block;
+  background-color: black;
+  color: #26c485;
+  border-radius: 20px;
+  width: 10rem;
+  height: 6vh;
+}
+
+.settingsButton > button:active {
+  transition: 0.3s;
+  background-color: #26c485;
+  color: black;
+}
 
 @media all and (max-width: 600px) {
   .genderButtons > span {
@@ -102,4 +123,3 @@
     font-size: 50px;
   }
 }
-

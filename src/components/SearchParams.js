@@ -6,14 +6,13 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import "../css/searchParams.css";
 
 const SearchParams = React.forwardRef((props, ref) => {
-  const { getParams, handleModal } = props;
-  const [genders, setGenders] = useState([]);
-  const [languageInput, setLanguageInput] = useState(undefined);
-  const [yearInput, setYearInput] = useState(undefined);
+  const { getParams } = props;
+  const [genders, setGenders] = useState(props.genders);
+  const [languageInput, setLanguageInput] = useState(props.language);
+  const [yearInput, setYearInput] = useState(props.year);
   const [confirm, setConfirm] = useState();
   const [erase, setErase] = useState();
-  const [sortBy, setSortBy] = useState('popularity.desc');
-  const [isLoading, setIsLoading] = useState(false);
+  const [sortBy, setSortBy] = useState(props.sortBy);
 
   const handleGender = gender => {
     const index = genders.indexOf(gender);
@@ -28,7 +27,7 @@ const SearchParams = React.forwardRef((props, ref) => {
   const getIsoLanguage = lg =>
     new Promise((successCallback, failureCallback) => {
       lg = String(lg).toLocaleLowerCase();
-      const format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+      const format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
       if (format.test(lg)) failureCallback("format error");
       else {
         const iso = ISO6391.getCode(lg);
@@ -61,31 +60,25 @@ const SearchParams = React.forwardRef((props, ref) => {
       : (yearCheck = null);
 
     if (languageCheck !== "format error" && yearCheck !== "invalid year") {
-      getParams(genders, languageCheck, yearCheck);
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false);
-        handleModal();
-      }, 1500);
+      getParams(genders, languageCheck, yearCheck, sortBy);
     } else if (languageCheck === "format error") {
     } else if (yearCheck === "invalid year") {
     }
   };
 
   const handleActionsButton = action => {
-    if (action == "confirm") {
+    if (action === "confirm") {
       setConfirm(true);
       handleConfirm();
-    } else if (action == "erase") {
+    } else if (action === "erase") {
       setErase(true);
       setGenders([]);
       setLanguageInput();
       setYearInput();
-    }
-    setTimeout(() => {
+    } else {
       setConfirm(false);
       setErase(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -208,7 +201,7 @@ const SearchParams = React.forwardRef((props, ref) => {
             Western
           </span>
         </div>
-        <h1 className='genderTitle'>Language</h1>
+        <h1 className='genderTitle'>Original Language</h1>
         <input
           type='text'
           id='lg'
@@ -229,14 +222,18 @@ const SearchParams = React.forwardRef((props, ref) => {
           onChange={e => setYearInput(e.target.value)}
         ></input>
         <h1 className='genderTitle'>Sort By</h1>
-        <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="genderInput">
-            <option value="popularity.asc">Popularity | asc</option>
-            <option value="release_date.asc">Release date | asc</option>
-            <option value="vote_average.asc">Vote average | asc</option>
-            <option value="popularity.desc">Popularity | desc (default)</option>
-            <option value="release_date.desc">Release date | desc</option>
-            <option value="vote_average.desc">Vote average | desc</option>
-          </select>
+        <select
+          value={sortBy}
+          onChange={e => setSortBy(e.target.value)}
+          className='genderInput'
+        >
+          <option value='popularity.asc'>Popularity | asc</option>
+          <option value='release_date.asc'>Release date | asc</option>
+          <option value='vote_average.asc'>Vote average | asc</option>
+          <option value='popularity.desc'>Popularity | desc (default)</option>
+          <option value='release_date.desc'>Release date | desc</option>
+          <option value='vote_average.desc'>Vote average | desc</option>
+        </select>
 
         <div className='genderActions'>
           <span onClick={() => handleActionsButton("erase")}>
