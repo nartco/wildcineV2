@@ -19,6 +19,7 @@ const Discover = () => {
   const [genders, setGenders] = useState([]);
   const [language, setLanguage] = useState();
   const [year, setYear] = useState();
+  const ref = React.createRef();
 
   const getMovie = useCallback(() => {
     setIsLoading(true);
@@ -43,6 +44,7 @@ const Discover = () => {
     setLanguage(language);
     setYear(year);
   };
+
   console.log(genders + " \\ " + language + " \\ " + year);
 
   useEffect(() => {
@@ -62,7 +64,13 @@ const Discover = () => {
           justifyContent: "center"
         }}
       >
-        <SearchParams handleModal={handleModal} getParams={getParameters} />
+        <div>
+          <SearchParams
+            handleModal={handleModal}
+            getParams={getParameters}
+            ref={ref}
+          />
+        </div>
       </Modal>
       <Grid container style={{ marginTop: "10vh" }} spacing={1}>
         {isLoading ? null : <DisplayMovies movies={movies} />}

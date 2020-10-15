@@ -5,15 +5,14 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 import "../css/searchParams.css";
 
-const SearchParams = props => {
+const SearchParams = React.forwardRef((props, ref) => {
   const { getParams, handleModal } = props;
   const [genders, setGenders] = useState([]);
-  const [language, setLanguage] = useState();
-  const [year, setYear] = useState();
-  const [languageInput, setLanguageInput] = useState("");
-  const [yearInput, setYearInput] = useState("");
+  const [languageInput, setLanguageInput] = useState(undefined);
+  const [yearInput, setYearInput] = useState(undefined);
   const [confirm, setConfirm] = useState();
   const [erase, setErase] = useState();
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleGender = gender => {
     const index = genders.indexOf(gender);
@@ -32,8 +31,8 @@ const SearchParams = props => {
       if (format.test(lg)) failureCallback("format error");
       else {
         const iso = ISO6391.getCode(lg);
-        iso ? setLanguage(iso) : failureCallback("format error");
-        successCallback("success");
+        if (!iso) failureCallback("format error");
+        successCallback(iso);
       }
     });
 
@@ -45,17 +44,29 @@ const SearchParams = props => {
       if (!(Number.isInteger(y) && (y >= 1883 && y <= actualYear + 25))) {
         failureCallback("invalid year");
       } else {
-        setYear(y);
-        successCallback("success");
+        successCallback(y);
       }
     });
 
   const handleConfirm = async () => {
-    const languageCheck = await getIsoLanguage(languageInput);
-    const yearCheck = await handleYear(yearInput);
-    if (languageCheck === "success" && yearCheck === "success") {
-      console.log(year);
-      getParams(genders, language, year);
+    let languageCheck;
+    let yearCheck;
+
+    !!languageInput
+      ? (languageCheck = await getIsoLanguage(languageInput))
+      : (languageCheck = null);
+    !!yearInput
+      ? (yearCheck = await handleYear(yearInput))
+      : (yearCheck = null);
+
+    if (languageCheck !== "format error" && yearCheck !== "invalid year") {
+      getParams(genders, languageCheck, yearCheck);
+      setIsLoading(true)
+      setTimeout(() => {
+        setIsLoading(false)
+        handleModal();
+      }, 1500);
+      
     } else if (languageCheck === "format error") {
     } else if (yearCheck === "invalid year") {
     }
@@ -68,8 +79,8 @@ const SearchParams = props => {
     } else if (action == "erase") {
       setErase(true);
       setGenders([]);
-      setLanguage();
-      setYear();
+      setLanguageInput();
+      setYearInput();
     }
     setTimeout(() => {
       setConfirm(false);
@@ -78,7 +89,7 @@ const SearchParams = props => {
   };
 
   return (
-    <div>
+    <div ref={ref}>
       <div className='settingsCard'>
         <h1 className='genderTitle'>Genres</h1>
         <div className='genderButtons'>
@@ -245,6 +256,6 @@ const SearchParams = props => {
       </div>
     </div>
   );
-};
+});
 
 export default SearchParams;
