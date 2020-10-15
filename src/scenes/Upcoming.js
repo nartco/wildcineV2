@@ -5,10 +5,10 @@ import axios from "axios";
 
 import DisplayMovies from "../components/DisplayMovies";
 
-const Discover = () => {
+const Upcoming = () => {
   let { page } = useParams();
   page = parseInt(page);
-  page <= 0 ? (page = 1) : (page = page);
+  if (page <= 0) page = 1;
 
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState([]);
@@ -28,7 +28,7 @@ const Discover = () => {
         setErrors(errors.concat(error.message));
         setIsLoading(false);
       });
-  }, [page]);
+  }, [page, errors]);
 
   useEffect(() => {
     getMovie(page);
@@ -62,6 +62,6 @@ const Discover = () => {
   );
 };
 
-export default Discover;
+export default Upcoming;
 
 // passer l'index dans les params de l'url

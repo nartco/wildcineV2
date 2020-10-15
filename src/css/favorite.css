@@ -1,0 +1,58 @@
+.settingsCard {
+  border-radius: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70vw;
+  height: 70vh;
+  background-color: rgb(15, 15, 15);
+  transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
+  overflow: auto;
+}
+
+.genderButtons {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.genderButtons > span {
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 1.5vh;
+  text-align: center;
+  text-decoration: none;
+  width: 20vw;
+  height: 6vh;
+  margin: 9px;
+  transition: 0.3s;
+}
+
+.genderButton {
+  border: 3px solid #26c485;
+  background-color: black;
+  color: #26c485;
+}
+
+.genderButtonActive {
+  border: 3px solid black;
+  background-color: #26c485;
+  color: black;
+}
+
+.genderActions {
+  text-align: center;
+}
+.genderTitle {
+  color: #26c485;
+  font-family: "Open Sans", sans-serif;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 1.8rem;
+  text-shadow: 1px 1px 2px green;
+}

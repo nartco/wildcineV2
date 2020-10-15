@@ -37,7 +37,7 @@ const Home = () => {
         setErrors(errors.concat(error.message));
         setIsLoading(false);
       });
-  }, []);
+  }, [errors]);
 
   useEffect(() => {
     getMovies();
@@ -49,7 +49,7 @@ const Home = () => {
   return (
     <div>
       {isLoading ? (
-        <img src='../../public/logo512.png' />
+        <img src='../../public/logo512.png' alt="logo" />
       ) : (
         <div>
           <Link style={{ textDecoration: "none", color: "#26c485" }} to='/'>
