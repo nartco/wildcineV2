@@ -12,7 +12,8 @@ const SearchParams = React.forwardRef((props, ref) => {
   const [yearInput, setYearInput] = useState(undefined);
   const [confirm, setConfirm] = useState();
   const [erase, setErase] = useState();
-  const [isLoading, setIsLoading] = useState(false)
+  const [sortBy, setSortBy] = useState('popularity.desc');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGender = gender => {
     const index = genders.indexOf(gender);
@@ -61,12 +62,11 @@ const SearchParams = React.forwardRef((props, ref) => {
 
     if (languageCheck !== "format error" && yearCheck !== "invalid year") {
       getParams(genders, languageCheck, yearCheck);
-      setIsLoading(true)
+      setIsLoading(true);
       setTimeout(() => {
-        setIsLoading(false)
+        setIsLoading(false);
         handleModal();
       }, 1500);
-      
     } else if (languageCheck === "format error") {
     } else if (yearCheck === "invalid year") {
     }
@@ -228,6 +228,15 @@ const SearchParams = React.forwardRef((props, ref) => {
           value={yearInput}
           onChange={e => setYearInput(e.target.value)}
         ></input>
+        <h1 className='genderTitle'>Sort By</h1>
+        <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="genderInput">
+            <option value="popularity.asc">Popularity | asc</option>
+            <option value="release_date.asc">Release date | asc</option>
+            <option value="vote_average.asc">Vote average | asc</option>
+            <option value="popularity.desc">Popularity | desc (default)</option>
+            <option value="release_date.desc">Release date | desc</option>
+            <option value="vote_average.desc">Vote average | desc</option>
+          </select>
 
         <div className='genderActions'>
           <span onClick={() => handleActionsButton("erase")}>
