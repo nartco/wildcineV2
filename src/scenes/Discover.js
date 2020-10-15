@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Modal from "@material-ui/core/Modal";
 
+import SearchParams from "../components/SearchParams";
 import DisplayMovies from "../components/DisplayMovies";
 
 const Discover = () => {
@@ -15,6 +16,9 @@ const Discover = () => {
   const [errors, setErrors] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [movies, setMovies] = useState();
+  const [genders, setGenders] = useState([]);
+  const [language, setLanguage] = useState();
+  const [year, setYear] = useState();
 
   const getMovie = useCallback(() => {
     setIsLoading(true);
@@ -34,6 +38,13 @@ const Discover = () => {
 
   const handleModal = () => setOpen(!open);
 
+  const getParameters = (genders, language, year) => {
+    setGenders(genders);
+    setLanguage(language);
+    setYear(year);
+  };
+  console.log(genders + " \\ " + language + " \\ " + year);
+
   useEffect(() => {
     getMovie(page);
   }, [getMovie, page]);
@@ -48,11 +59,10 @@ const Discover = () => {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
-          color: "blue"
+          justifyContent: "center"
         }}
       >
-        <p>SDfaskopk</p>
+        <SearchParams handleModal={handleModal} getParams={getParameters} />
       </Modal>
       <Grid container style={{ marginTop: "10vh" }} spacing={1}>
         {isLoading ? null : <DisplayMovies movies={movies} />}

@@ -1,0 +1,103 @@
+.settingsCard {
+  border-radius: 20px;
+  position: absolute;
+
+  width: 70vw;
+  height: 70vh;
+  background-color: rgb(15, 15, 15);
+  transform: translate(-50.8%, -50%); /* décalage de 50% de sa propre taille */
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+
+.genderButtons {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.genderButtons > span {
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 1.5vh;
+  text-align: center;
+  text-decoration: none;
+  width: 20vw;
+  height: 6vh;
+  margin: 9px;
+  transition: 0.3s;
+}
+
+.genderButton {
+  border: 3px solid #26c485;
+  background-color: black;
+  color: #26c485;
+}
+
+.genderButtonActive {
+  border: 3px solid black;
+  background-color: #26c485;
+  color: black;
+}
+
+.genderActions {
+  text-align: center;
+}
+.actionButton {
+  color: #26c485;
+  cursor: pointer;
+  margin: 20px;
+}
+.actionButtonActive {
+  color: #a4ffdb;
+}
+.genderTitle {
+  color: #26c485;
+  font-family: "Open Sans", sans-serif;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 1.8rem;
+  text-shadow: 1px 1px 2px green;
+}
+
+.genderInput {
+  margin: auto auto;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: black;
+  color: #26c485;
+  border-radius: 20px;
+  width: 40vw;
+  height: 6vh;
+  text-align: center;
+}
+
+.genderInput::placeholder {
+  text-align: center;
+  color: #26c48581;
+}
+
+@media all and (max-width: 600px) {
+  .genderButtons > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 14px auto;
+    height: 8vh;
+    width: 28vw;
+    padding-top: 0;
+    font-size: 0.8rem;
+  }
+  .genderTitle {
+    font-size: 1.5rem;
+  }
+  .actionButton {
+    font-size: 50px;
+  }
+}
