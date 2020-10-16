@@ -5,7 +5,7 @@
   width: 70vw;
   height: 70vh;
   background-color: rgb(15, 15, 15);
-  transform: translate(-50.8%, -50%); /* décalage de 50% de sa propre taille */
+  transform: translate(-50.85%, -50%); /* décalage de 50% de sa propre taille */
   overflow: auto;
   scroll-behavior: smooth;
 }
@@ -47,13 +47,16 @@
 .genderActions {
   text-align: center;
 }
-.actionButton {
+.actionsIcon {
   color: #26c485;
   cursor: pointer;
-  margin: 20px;
+  margin: 3px;
 }
-.actionButtonActive {
-  color: #a4ffdb;
+
+.actionsButton {
+  border-radius: 50px;
+  margin: 5px 20px;
+  background-color: black;
 }
 .genderTitle {
   color: #26c485;
@@ -119,7 +122,7 @@
   .genderTitle {
     font-size: 1.5rem;
   }
-  .actionButton {
+  .actionsIcon {
     font-size: 50px;
   }
 }

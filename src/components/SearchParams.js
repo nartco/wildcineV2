@@ -10,8 +10,6 @@ const SearchParams = React.forwardRef((props, ref) => {
   const [genders, setGenders] = useState(props.genders);
   const [languageInput, setLanguageInput] = useState(props.language);
   const [yearInput, setYearInput] = useState(props.year);
-  const [confirm, setConfirm] = useState();
-  const [erase, setErase] = useState();
   const [sortBy, setSortBy] = useState(props.sortBy);
 
   const handleGender = gender => {
@@ -20,9 +18,6 @@ const SearchParams = React.forwardRef((props, ref) => {
     index === -1 ? gendersCopy.push(gender) : gendersCopy.splice(index, 1);
     setGenders(gendersCopy);
   };
-
-  const setActiveButton = gender =>
-    genders.indexOf(gender) !== -1 ? "genderButtonActive" : "genderButton";
 
   const getIsoLanguage = lg =>
     new Promise((successCallback, failureCallback) => {
@@ -48,6 +43,13 @@ const SearchParams = React.forwardRef((props, ref) => {
       }
     });
 
+  const handleEraseAll = () => {
+    setGenders([]);
+    setLanguageInput();
+    setYearInput();
+    setSortBy("popularity.desc");
+  };
+
   const handleConfirm = async () => {
     let languageCheck;
     let yearCheck;
@@ -66,20 +68,8 @@ const SearchParams = React.forwardRef((props, ref) => {
     }
   };
 
-  const handleActionsButton = action => {
-    if (action === "confirm") {
-      setConfirm(true);
-      handleConfirm();
-    } else if (action === "erase") {
-      setErase(true);
-      setGenders([]);
-      setLanguageInput();
-      setYearInput();
-    } else {
-      setConfirm(false);
-      setErase(false);
-    }
-  };
+  const setActiveButton = gender =>
+    genders.indexOf(gender) !== -1 ? "genderButtonActive" : "genderButton";
 
   return (
     <div ref={ref}>
@@ -236,28 +226,24 @@ const SearchParams = React.forwardRef((props, ref) => {
         </select>
 
         <div className='genderActions'>
-          <span onClick={() => handleActionsButton("erase")}>
+          <button onClick={() => handleEraseAll()} className='actionsButton'>
             <HighlightOffIcon
               style={{
                 fontSize: 60,
                 transition: "0.1s"
               }}
-              className={
-                erase ? "actionButton actionButtonActive" : "actionButton"
-              }
+              className={"actionsIcon"}
             />
-          </span>
-          <span onClick={() => handleActionsButton("confirm")}>
+          </button>
+          <button onClick={() => handleConfirm()} className='actionsButton'>
             <CheckCircleOutlineIcon
               style={{
                 fontSize: 60,
                 transition: "0.2s"
               }}
-              className={
-                confirm ? "actionButton actionButtonActive" : "actionButton"
-              }
+              className={"actionsIcon"}
             />
-          </span>
+          </button>
         </div>
       </div>
     </div>
@@ -265,3 +251,5 @@ const SearchParams = React.forwardRef((props, ref) => {
 });
 
 export default SearchParams;
+
+// erase ? "actionButton actionButtonActive"

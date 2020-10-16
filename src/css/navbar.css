@@ -22,7 +22,7 @@ nav {
 }
 
 .navLink li.logo {
-  font-family: "Fugaz One", cursive;
+  font-family: "Fugaz One", Arial, Helvetica;
   flex: 1;
   width: 20px;
   font-size: 1.1rem;
@@ -94,7 +94,7 @@ nav {
     font-size: 23px;
     margin-top: 5px;
   }
-  .navLink{
+  .navLink {
     margin-right: 0;
   }
   .navLink li.logo {

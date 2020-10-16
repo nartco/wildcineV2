@@ -30,7 +30,11 @@ const Discover = () => {
       .get(
         `https://api.themoviedb.org/3/discover/movie?api_key=${
           process.env.REACT_APP_MOVIE_KEY
-        }&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}&year=${year}&with_genres=${genders.join()}&with_original_language=${language}`
+        }&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}${
+          !!year ? `&year=${year}` : ""
+        }${genders.length > 0 ? `&with_genres=${genders.join()}` : ""}${
+          !!language ? `&with_original_language=${language}` : ""
+        }`
       )
       .then(response => {
         setMovies(response.data.results);
@@ -45,14 +49,16 @@ const Discover = () => {
   const handleModal = () => setOpen(!open);
 
   const getParameters = (genders, language, year, sort) => {
+    !!language ? setLanguage(language) : setLanguage("");
+    !!year ? setYear(year) : setYear("");
     setGenders(genders);
-    setLanguage(language);
-    setYear(year);
     setSortBy(sort);
     handleModal();
   };
 
-  console.log(genders + " \\ " + language + " \\ " + year + " \\ " + sortBy);
+  console.log(
+    !!genders + " \\ " + !!language + " \\ " + !!year + " \\ " + !!sortBy
+  );
 
   useEffect(() => {
     getMovie(page);
@@ -98,7 +104,7 @@ const Discover = () => {
               style={{
                 textDecoration: "none"
               }}
-              to={`/upcoming/${page - 1}`}
+              to={`/discover/${page - 1}`}
             >
               <button className='pageButtons'>prev</button>
             </Link>
@@ -109,7 +115,7 @@ const Discover = () => {
               style={{
                 textDecoration: "none"
               }}
-              to={`/upcoming/${page + 1}`}
+              to={`/discover/${page + 1}`}
             >
               <button className='pageButtons'>next</button>
             </Link>
