@@ -45,8 +45,8 @@ const SearchParams = React.forwardRef((props, ref) => {
 
   const handleEraseAll = () => {
     setGenders([]);
-    setLanguageInput();
-    setYearInput();
+    setLanguageInput('');
+    setYearInput('');
     setSortBy("popularity.desc");
   };
 

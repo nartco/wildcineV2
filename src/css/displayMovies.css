@@ -29,6 +29,13 @@
   margin-top: 20px;
 }
 
+.pageInput {
+  background-color: black;
+  color: #26c485;
+  text-align: center;
+  border:none;
+}
+
 @media all and (max-width: 599px) {
   .displayTitle {
     font-size: 0.9rem;

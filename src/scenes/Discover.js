@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, Redirect } from "react-router-dom";
 import axios from "axios";
 import ISO6391 from "iso-639-1";
 import Modal from "@material-ui/core/Modal";
@@ -22,6 +22,7 @@ const Discover = () => {
   const [language, setLanguage] = useState("");
   const [year, setYear] = useState("");
   const [sortBy, setSortBy] = useState("popularity.desc");
+  const [pageInput, setPageInput] = useState(page);
   const ref = React.createRef();
 
   const getMovie = useCallback(() => {
@@ -56,8 +57,22 @@ const Discover = () => {
     handleModal();
   };
 
+  const handleKeypress = e => {
+    if (e.charCode === 13) {
+      console.log("x");
+      return <Redirect to={`/discover/${pageInput}`} />;
+    }
+  };
+
   console.log(
-    !!genders + " \\ " + !!language + " \\ " + !!year + " \\ " + !!sortBy
+    !!genders +
+      " \\ " +
+      !!language +
+      " \\ " +
+      !!year +
+      " \\ " +
+      !!sortBy +
+      pageInput
   );
 
   useEffect(() => {
@@ -109,7 +124,15 @@ const Discover = () => {
               <button className='pageButtons'>prev</button>
             </Link>
             <button disabled={true} className='pageButtons'>
-              {page}
+              <input
+                type='number'
+                min='1'
+                value={pageInput}
+                onChange={e => setPageInput(e.target.value)}
+                className='pageInput'
+                onKeyPress={handleKeypress}
+              />
+              {/* {page} */}
             </button>
             <Link
               style={{
