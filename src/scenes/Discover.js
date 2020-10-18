@@ -1,37 +1,45 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Link, useParams, Redirect } from "react-router-dom";
+import { Link, useParams, Redirect, useLocation } from "react-router-dom";
 import axios from "axios";
 import ISO6391 from "iso-639-1";
 import Modal from "@material-ui/core/Modal";
+import queryString from "query-string";
 
 import SearchParams from "../components/SearchParams";
 import DisplayMovies from "../components/DisplayMovies";
 import LoaderCustom from "../components/Loader";
 
-const Discover = () => {
-  let { page } = useParams();
+const Discover = props => {
+  const location = useLocation();
+
+  const { page, year, genders, sortBY, language } = queryString.parse(
+    location.search
+  );
   page = parseInt(page);
-  if (page <= 0) page = 1;
+  year = parseInt(year);
 
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [movies, setMovies] = useState();
-  const [genders, setGenders] = useState([]);
-  const [language, setLanguage] = useState("");
-  const [year, setYear] = useState("");
-  const [sortBy, setSortBy] = useState("popularity.desc");
-  const [pageInput, setPageInput] = useState(page);
+  const [gendersInput, setGendersInput] = useState([]);
+  const [languageInput, setLanguageInput] = useState("");
+  const [yearInput, setYearInput] = useState("");
+  const [sortByInput, setSortByInput] = useState("popularity.desc");
+  const [pageInput, setPageInput] = useState(1);
+  const [redirect, setRedirect] = useState(false);
+  const [maxPage, setMaxPage] = useState(null);
   const ref = React.createRef();
 
   const getMovie = useCallback(() => {
+    setRedirect(false);
     setIsLoading(true);
     axios
       .get(
         `https://api.themoviedb.org/3/discover/movie?api_key=${
           process.env.REACT_APP_MOVIE_KEY
-        }&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}${
+        }&sort_by=${sortBy}&include_adult=false&include_video=false&page=${pageInput}${
           !!year ? `&year=${year}` : ""
         }${genders.length > 0 ? `&with_genres=${genders.join()}` : ""}${
           !!language ? `&with_original_language=${language}` : ""
@@ -39,7 +47,9 @@ const Discover = () => {
       )
       .then(response => {
         setMovies(response.data.results);
+        setMaxPage(response.data.total_pages);
         setIsLoading(false);
+        // console.log(response);
       })
       .catch(error => {
         setErrors(errors.concat(error.message));
@@ -50,34 +60,54 @@ const Discover = () => {
   const handleModal = () => setOpen(!open);
 
   const getParameters = (genders, language, year, sort) => {
-    !!language ? setLanguage(language) : setLanguage("");
-    !!year ? setYear(year) : setYear("");
-    setGenders(genders);
-    setSortBy(sort);
+    !!language ? setLanguageInput(language) : setLanguageInput("");
+    !!year ? setYearInput(year) : setYearInput("");
+    setGendersInput(genders);
+    setSortByInput(sort);
+    setPageInput(1);
     handleModal();
+    setRedirect(true);
   };
 
   const handleKeypress = e => {
-    if (e.charCode === 13) {
-      console.log("x");
-      return <Redirect to={`/discover/${pageInput}`} />;
+    if (e.charCode === 13 && pageInput) {
+      if (pageInput > maxPage) {
+        setPageInput(maxPage);
+      }
+      setRedirect(true);
     }
   };
 
-  console.log(
-    !!genders +
-      " \\ " +
-      !!language +
-      " \\ " +
-      !!year +
-      " \\ " +
-      !!sortBy +
-      pageInput
-  );
+  // console.log(
+  //   !!genders +
+  //     " \\ " +
+  //     !!language +
+  //     " \\ " +
+  //     !!year +
+  //     " \\ " +
+  //     !!sortBy +
+  //     pageInput
+  // );
 
   useEffect(() => {
+    if (page <= 0) page = 1;
+    setPageInput(page);
+    
     getMovie(page);
-  }, [getMovie, page]);
+  }, [getMovie, page, redirect]);
+
+  if (redirect) {
+    return (
+      <Redirect
+        push
+        to={`/discover/page=${pageInput}${
+          !!yearInput ? `&year=${yearInput}` : ""
+        }${genders.length > 0 ? `&with_genres=${gendersInput.join()}` : ""}${
+          !!languageInput ? `&with_original_language=${languageInput}` : ""
+        }${"&sort_by=" + sortByInput}`}
+      />
+    );
+  }
 
   return (
     <div>
@@ -119,7 +149,7 @@ const Discover = () => {
               style={{
                 textDecoration: "none"
               }}
-              to={`/discover/${page - 1}`}
+              to={`/discover/${pageInput - 1}`}
             >
               <button className='pageButtons'>prev</button>
             </Link>
@@ -127,6 +157,7 @@ const Discover = () => {
               <input
                 type='number'
                 min='1'
+                max={maxPage}
                 value={pageInput}
                 onChange={e => setPageInput(e.target.value)}
                 className='pageInput'
@@ -138,7 +169,7 @@ const Discover = () => {
               style={{
                 textDecoration: "none"
               }}
-              to={`/discover/${page + 1}`}
+              to={`/discover/${pageInput + 1}`}
             >
               <button className='pageButtons'>next</button>
             </Link>

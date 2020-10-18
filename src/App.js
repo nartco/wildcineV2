@@ -18,7 +18,7 @@ export default function App() {
         <Route exact path='/'>
           <Home />
         </Route>
-        <Route path='/discover/:page'>
+        <Route path='/discover/*'>
           <Discover />
         </Route>
         <Route path='/upcoming/:page'>
