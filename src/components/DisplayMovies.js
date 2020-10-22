@@ -31,7 +31,7 @@ const DisplayMovie = props => {
           />
           <div className='overlay'>
             <div className='text'>
-              {movie.release_date.replaceAll("-", "/")}
+              {movie.release_date ? movie.release_date.replaceAll("-", "/") : 'no release date'}
             </div>
           </div>
         </Link>

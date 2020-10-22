@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Link, useParams, Redirect, useLocation } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import axios from "axios";
 import ISO6391 from "iso-639-1";
 import Modal from "@material-ui/core/Modal";
@@ -13,23 +13,20 @@ import LoaderCustom from "../components/Loader";
 const Discover = props => {
   const location = useLocation();
 
-  const { page, year, genders, sortBY, language } = queryString.parse(
+  let { page, year, genders, sortBy, language } = queryString.parse(
     location.search
   );
+
   page = parseInt(page);
-  year = parseInt(year);
 
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [movies, setMovies] = useState();
-  const [gendersInput, setGendersInput] = useState([]);
-  const [languageInput, setLanguageInput] = useState("");
-  const [yearInput, setYearInput] = useState("");
-  const [sortByInput, setSortByInput] = useState("popularity.desc");
-  const [pageInput, setPageInput] = useState(1);
   const [redirect, setRedirect] = useState(false);
   const [maxPage, setMaxPage] = useState(null);
+  const [index, setIndex] = useState(parseInt(page));
+
   const ref = React.createRef();
 
   const getMovie = useCallback(() => {
@@ -39,13 +36,16 @@ const Discover = props => {
       .get(
         `https://api.themoviedb.org/3/discover/movie?api_key=${
           process.env.REACT_APP_MOVIE_KEY
-        }&sort_by=${sortBy}&include_adult=false&include_video=false&page=${pageInput}${
+        }${
+          sortBy ? "&sort_by=" + sortBy : ""
+        }&include_adult=false&include_video=false&page=${page}${
           !!year ? `&year=${year}` : ""
-        }${genders.length > 0 ? `&with_genres=${genders.join()}` : ""}${
+        }${genders ? `&with_genres=${genders}` : ""}${
           !!language ? `&with_original_language=${language}` : ""
         }`
       )
       .then(response => {
+        console.log(response);
         setMovies(response.data.results);
         setMaxPage(response.data.total_pages);
         setIsLoading(false);
@@ -59,40 +59,25 @@ const Discover = props => {
 
   const handleModal = () => setOpen(!open);
 
-  const getParameters = (genders, language, year, sort) => {
-    !!language ? setLanguageInput(language) : setLanguageInput("");
-    !!year ? setYearInput(year) : setYearInput("");
-    setGendersInput(genders);
-    setSortByInput(sort);
-    setPageInput(1);
-    handleModal();
-    setRedirect(true);
-  };
-
-  const handleKeypress = e => {
-    if (e.charCode === 13 && pageInput) {
-      if (pageInput > maxPage) {
-        setPageInput(maxPage);
-      }
+  const handlePrevNext = e => {
+    if (page > maxPage) {
+      page = maxPage;
+    }
+    if (e.charCode === 13) {
+      setRedirect(true);
+    } else if (e === "next") {
+      setIndex(parseInt(page) + 1);
+      console.log(page);
+      setRedirect(true);
+    } else if (e === "prev") {
+      setIndex(parseInt(page) - 1);
       setRedirect(true);
     }
   };
 
-  // console.log(
-  //   !!genders +
-  //     " \\ " +
-  //     !!language +
-  //     " \\ " +
-  //     !!year +
-  //     " \\ " +
-  //     !!sortBy +
-  //     pageInput
-  // );
-
   useEffect(() => {
-    if (page <= 0) page = 1;
-    setPageInput(page);
-    
+    if (page > maxPage) page = maxPage;
+
     getMovie(page);
   }, [getMovie, page, redirect]);
 
@@ -100,11 +85,11 @@ const Discover = props => {
     return (
       <Redirect
         push
-        to={`/discover/page=${pageInput}${
-          !!yearInput ? `&year=${yearInput}` : ""
-        }${genders.length > 0 ? `&with_genres=${gendersInput.join()}` : ""}${
-          !!languageInput ? `&with_original_language=${languageInput}` : ""
-        }${"&sort_by=" + sortByInput}`}
+        to={`/discover/?page=${index.toString()}${
+          !!year ? `&year=${year}` : ""
+        }${genders ? `&genders=${genders}` : ""}${
+          !!language ? `&language=${language}` : ""
+        }${sortBy ? "&sortBy=" + sortBy : ""}`}
       />
     );
   }
@@ -125,12 +110,12 @@ const Discover = props => {
         <div>
           <SearchParams
             handleModal={handleModal}
-            getParams={getParameters}
+            // getParams={getParameters}
             ref={ref}
-            language={ISO6391.getName(language)}
-            sortBy={sortBy}
-            year={year}
-            genders={genders}
+            language={language ? ISO6391.getName(language) : ""}
+            sortBy={sortBy ? sortBy : "popularity.desc"}
+            year={year ? year : ""}
+            genders={genders ? genders.split(",").map(Number) : []}
           />
         </div>
       </Modal>
@@ -145,34 +130,32 @@ const Discover = props => {
             <DisplayMovies movies={movies} />
           </Grid>
           <div className='buttonContainer'>
-            <Link
-              style={{
-                textDecoration: "none"
-              }}
-              to={`/discover/${pageInput - 1}`}
+            <button
+              onClick={() => handlePrevNext("prev")}
+              className='pageButtons'
             >
-              <button className='pageButtons'>prev</button>
-            </Link>
+              prev
+            </button>
+
             <button disabled={true} className='pageButtons'>
               <input
                 type='number'
                 min='1'
                 max={maxPage}
-                value={pageInput}
-                onChange={e => setPageInput(e.target.value)}
+                value={parseInt(page)}
+                onChange={e => (page = e.target.value)}
                 className='pageInput'
-                onKeyPress={handleKeypress}
+                onKeyPress={handlePrevNext}
               />
               {/* {page} */}
             </button>
-            <Link
-              style={{
-                textDecoration: "none"
-              }}
-              to={`/discover/${pageInput + 1}`}
+
+            <button
+              onClick={() => handlePrevNext("next")}
+              className='pageButtons'
             >
-              <button className='pageButtons'>next</button>
-            </Link>
+              next
+            </button>
           </div>
         </React.Fragment>
       )}

@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ISO6391 from "iso-639-1";
+import { Redirect } from "react-router-dom";
+
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 import "../css/searchParams.css";
 
 const SearchParams = React.forwardRef((props, ref) => {
-  const { getParams } = props;
+  const { getParams, handleModal } = props;
   const [genders, setGenders] = useState(props.genders);
-  const [languageInput, setLanguageInput] = useState(props.language);
-  const [yearInput, setYearInput] = useState(props.year);
+  const [language, setLanguage] = useState(props.language);
+  const [year, setYear] = useState(props.year);
   const [sortBy, setSortBy] = useState(props.sortBy);
+  const [redirect, setRedirect] = useState(false);
+  console.log(genders);
 
   const handleGender = gender => {
     const index = genders.indexOf(gender);
@@ -36,6 +40,7 @@ const SearchParams = React.forwardRef((props, ref) => {
       y = parseInt(y);
       const actualDate = new Date();
       const actualYear = actualDate.getFullYear();
+
       if (!(Number.isInteger(y) && (y >= 1883 && y <= actualYear + 25))) {
         failureCallback("invalid year");
       } else {
@@ -45,8 +50,8 @@ const SearchParams = React.forwardRef((props, ref) => {
 
   const handleEraseAll = () => {
     setGenders([]);
-    setLanguageInput('');
-    setYearInput('');
+    setLanguage("");
+    setYear("");
     setSortBy("popularity.desc");
   };
 
@@ -54,15 +59,18 @@ const SearchParams = React.forwardRef((props, ref) => {
     let languageCheck;
     let yearCheck;
 
-    !!languageInput
-      ? (languageCheck = await getIsoLanguage(languageInput))
+    !!language
+      ? (languageCheck = await getIsoLanguage(language))
       : (languageCheck = null);
-    !!yearInput
-      ? (yearCheck = await handleYear(yearInput))
-      : (yearCheck = null);
+    !!year ? (yearCheck = await handleYear(year)) : (yearCheck = null);
 
     if (languageCheck !== "format error" && yearCheck !== "invalid year") {
-      getParams(genders, languageCheck, yearCheck, sortBy);
+      setGenders(genders);
+      setLanguage(languageCheck);
+      setYear(yearCheck);
+      setSortBy(sortBy);
+      // getParams(genders, languageCheck, yearCheck, sortBy);
+      setRedirect(true);
     } else if (languageCheck === "format error") {
     } else if (yearCheck === "invalid year") {
     }
@@ -70,6 +78,20 @@ const SearchParams = React.forwardRef((props, ref) => {
 
   const setActiveButton = gender =>
     genders.indexOf(gender) !== -1 ? "genderButtonActive" : "genderButton";
+
+  if (redirect) {
+    handleModal();
+    return (
+      <Redirect
+        push
+        to={`/discover/?page=1${!!year ? `&year=${year}` : ""}${
+          genders ? `&genders=${genders}` : ""
+        }${!!language ? `&language=${language}` : ""}${
+          sortBy ? "&sortBy=" + sortBy : ""
+        }`}
+      />
+    );
+  }
 
   return (
     <div ref={ref}>
@@ -198,8 +220,8 @@ const SearchParams = React.forwardRef((props, ref) => {
           name='lg'
           className='genderInput'
           placeholder='english...'
-          value={languageInput}
-          onChange={e => setLanguageInput(e.target.value)}
+          value={language}
+          onChange={e => setLanguage(e.target.value)}
         ></input>
         <h1 className='genderTitle'>Year</h1>
         <input
@@ -208,8 +230,8 @@ const SearchParams = React.forwardRef((props, ref) => {
           name='year'
           className='genderInput'
           placeholder='2002...'
-          value={yearInput}
-          onChange={e => setYearInput(e.target.value)}
+          value={year}
+          onChange={e => setYear(e.target.value)}
         ></input>
         <h1 className='genderTitle'>Sort By</h1>
         <select
