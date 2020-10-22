@@ -17,8 +17,6 @@ const Discover = props => {
     location.search
   );
 
-  page = parseInt(page);
-
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -26,6 +24,8 @@ const Discover = props => {
   const [redirect, setRedirect] = useState(false);
   const [maxPage, setMaxPage] = useState(null);
   const [index, setIndex] = useState(parseInt(page));
+
+  console.log(index);
 
   const ref = React.createRef();
 
@@ -38,48 +38,42 @@ const Discover = props => {
           process.env.REACT_APP_MOVIE_KEY
         }${
           sortBy ? "&sort_by=" + sortBy : ""
-        }&include_adult=false&include_video=false&page=${page}${
+        }&include_adult=false&include_video=false&page=${index}${
           !!year ? `&year=${year}` : ""
         }${genders ? `&with_genres=${genders}` : ""}${
           !!language ? `&with_original_language=${language}` : ""
         }`
       )
       .then(response => {
-        console.log(response);
         setMovies(response.data.results);
         setMaxPage(response.data.total_pages);
         setIsLoading(false);
-        // console.log(response);
       })
       .catch(error => {
         setErrors(errors.concat(error.message));
         setIsLoading(false);
       });
-  }, [page, errors, genders, year, sortBy, language]);
+  }, [index, errors, genders, year, sortBy, language]);
 
   const handleModal = () => setOpen(!open);
 
   const handlePrevNext = e => {
-    if (page > maxPage) {
-      page = maxPage;
+    if (index <= 0) {
+      setIndex(1);
+    } else if (index > maxPage) {
+      setIndex(maxPage);
     }
-    if (e.charCode === 13) {
-      setRedirect(true);
-    } else if (e === "next") {
+    if (e === "next") {
       setIndex(parseInt(page) + 1);
-      console.log(page);
-      setRedirect(true);
     } else if (e === "prev") {
       setIndex(parseInt(page) - 1);
-      setRedirect(true);
     }
+    setRedirect(true);
   };
 
   useEffect(() => {
-    if (page > maxPage) page = maxPage;
-
-    getMovie(page);
-  }, [getMovie, page, redirect]);
+    getMovie();
+  }, [getMovie]);
 
   if (redirect) {
     return (
@@ -142,12 +136,11 @@ const Discover = props => {
                 type='number'
                 min='1'
                 max={maxPage}
-                value={parseInt(page)}
-                onChange={e => (page = e.target.value)}
+                value={page}
+                onChange={e => setIndex(e.target.value)}
                 className='pageInput'
                 onKeyPress={handlePrevNext}
               />
-              {/* {page} */}
             </button>
 
             <button
