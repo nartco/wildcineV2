@@ -25,8 +25,6 @@ const Discover = props => {
   const [maxPage, setMaxPage] = useState(null);
   const [index, setIndex] = useState(parseInt(page));
 
-  console.log(index);
-
   const ref = React.createRef();
 
   const getMovie = useCallback(() => {
@@ -45,6 +43,7 @@ const Discover = props => {
         }`
       )
       .then(response => {
+        console.log(response);
         setMovies(response.data.results);
         setMaxPage(response.data.total_pages);
         setIsLoading(false);
@@ -92,6 +91,7 @@ const Discover = props => {
     <div>
       <Modal
         open={open}
+        ref={ref}
         onClose={handleModal}
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
@@ -104,11 +104,9 @@ const Discover = props => {
         <div>
           <SearchParams
             handleModal={handleModal}
-            // getParams={getParameters}
-            ref={ref}
             language={language ? ISO6391.getName(language) : ""}
             sortBy={sortBy ? sortBy : "popularity.desc"}
-            year={year ? year : ""}
+            year={!!year ? year : ""}
             genders={genders ? genders.split(",").map(Number) : []}
           />
         </div>

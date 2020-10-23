@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import ISO6391 from "iso-639-1";
 import { Redirect } from "react-router-dom";
 
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import RotateLeft from "@material-ui/icons/RotateLeft";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 import "../css/searchParams.css";
 
 const SearchParams = React.forwardRef((props, ref) => {
-  const { getParams, handleModal } = props;
+  const { handleModal } = props;
   const [genders, setGenders] = useState(props.genders);
   const [language, setLanguage] = useState(props.language);
   const [year, setYear] = useState(props.year);
   const [sortBy, setSortBy] = useState(props.sortBy);
   const [redirect, setRedirect] = useState(false);
-  console.log(genders);
+  console.log(language);
 
   const handleGender = gender => {
     const index = genders.indexOf(gender);
@@ -62,14 +62,13 @@ const SearchParams = React.forwardRef((props, ref) => {
     !!language
       ? (languageCheck = await getIsoLanguage(language))
       : (languageCheck = null);
-    !!year ? (yearCheck = await handleYear(year)) : (yearCheck = null);
+    !!year ? (yearCheck = await handleYear(year)) : (yearCheck = '');
 
     if (languageCheck !== "format error" && yearCheck !== "invalid year") {
       setGenders(genders);
       setLanguage(languageCheck);
       setYear(yearCheck);
       setSortBy(sortBy);
-      // getParams(genders, languageCheck, yearCheck, sortBy);
       setRedirect(true);
     } else if (languageCheck === "format error") {
     } else if (yearCheck === "invalid year") {
@@ -80,7 +79,7 @@ const SearchParams = React.forwardRef((props, ref) => {
     genders.indexOf(gender) !== -1 ? "genderButtonActive" : "genderButton";
 
   if (redirect) {
-    handleModal();
+    setTimeout(() => handleModal(), 200);
     return (
       <Redirect
         push
@@ -249,7 +248,7 @@ const SearchParams = React.forwardRef((props, ref) => {
 
         <div className='genderActions'>
           <button onClick={() => handleEraseAll()} className='actionsButton'>
-            <HighlightOffIcon
+            <RotateLeft
               style={{
                 fontSize: 60,
                 transition: "0.1s"
