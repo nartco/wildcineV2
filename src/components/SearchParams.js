@@ -219,7 +219,7 @@ const SearchParams = React.forwardRef((props, ref) => {
           className='genderInput'
           placeholder='english...'
           value={language}
-          autocomplete='off'
+          autoComplete='off'
           onChange={e => setLanguage(e.target.value)}
         ></input>
         <h1 className='genderTitle'>Year</h1>
@@ -230,7 +230,7 @@ const SearchParams = React.forwardRef((props, ref) => {
           className='genderInput'
           placeholder='2002...'
           value={year}
-          autocomplete='off'
+          autoComplete='off'
           onChange={e => setYear(e.target.value)}
         ></input>
         <h1 className='genderTitle'>Sort By</h1>

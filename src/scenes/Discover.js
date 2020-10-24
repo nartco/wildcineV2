@@ -72,6 +72,11 @@ const Discover = props => {
     setRedirect(true);
   };
 
+  const handleSelectPage = i => {
+    setIndex(i);
+    setRedirect(true);
+  };
+
   const pageSelect = () => {
     let pageArray = [];
     for (let i = 1; i <= maxPage; i++) {
@@ -82,8 +87,9 @@ const Discover = props => {
   };
 
   useEffect(() => {
+    setIndex(page);
     getMovie();
-  }, [getMovie]);
+  }, [getMovie, page]);
 
   if (redirect) {
     return (
@@ -132,7 +138,7 @@ const Discover = props => {
           <Grid container style={{ marginTop: "10vh" }} spacing={1}>
             <DisplayMovies movies={movies} />
           </Grid>
-          <div className="buttonContainer">
+          <div className='buttonContainer'>
             <button
               onClick={() => handlePrevNext("prev")}
               className='pageButtons'
@@ -142,8 +148,8 @@ const Discover = props => {
 
             <select
               className='pageButtons pageSelect'
-              value={sortBy}
-              onChange={e => setIndex(e.target.value)}
+              value={index}
+              onChange={e => handleSelectPage(e.target.value)}
             >
               {pageSelect()}
             </select>
