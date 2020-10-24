@@ -34,7 +34,7 @@
   background-color: black;
   color: #26c485;
   text-align: center;
-  border:none;
+  border: none;
 }
 
 @media all and (max-width: 599px) {
@@ -112,8 +112,26 @@
   color: #26c485;
   width: 20vw;
   height: 2rem;
+  text-align-last: center;
 }
 .buttonContainer {
   margin: 4vw auto;
   text-align: center;
+}
+
+select {
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
+}
+
+@media not all and (min-resolution: 0.001dpcm) {
+  .pageSelect {
+    text-indent: 50%;
+  }
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 }

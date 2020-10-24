@@ -25,6 +25,8 @@ const Discover = props => {
   const [maxPage, setMaxPage] = useState(null);
   const [index, setIndex] = useState(parseInt(page));
 
+  console.log(index);
+
   const ref = React.createRef();
 
   const getMovie = useCallback(() => {
@@ -68,6 +70,15 @@ const Discover = props => {
       setIndex(parseInt(page) - 1);
     }
     setRedirect(true);
+  };
+
+  const pageSelect = () => {
+    let pageArray = [];
+    for (let i = 1; i <= maxPage; i++) {
+      pageArray.push(<option value={i}>{i}</option>);
+    }
+    console.log(pageArray);
+    return pageArray;
   };
 
   useEffect(() => {
@@ -121,7 +132,7 @@ const Discover = props => {
           <Grid container style={{ marginTop: "10vh" }} spacing={1}>
             <DisplayMovies movies={movies} />
           </Grid>
-          <div className='buttonContainer'>
+          <div className="buttonContainer">
             <button
               onClick={() => handlePrevNext("prev")}
               className='pageButtons'
@@ -129,17 +140,13 @@ const Discover = props => {
               prev
             </button>
 
-            <button disabled={true} className='pageButtons'>
-              <input
-                type='number'
-                min='1'
-                max={maxPage}
-                value={page}
-                onChange={e => setIndex(e.target.value)}
-                className='pageInput'
-                onKeyPress={handlePrevNext}
-              />
-            </button>
+            <select
+              className='pageButtons pageSelect'
+              value={sortBy}
+              onChange={e => setIndex(e.target.value)}
+            >
+              {pageSelect()}
+            </select>
 
             <button
               onClick={() => handlePrevNext("next")}

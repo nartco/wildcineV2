@@ -4,9 +4,30 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  user-select: none;
 }
 
 body {
   min-width: 320px;
   background-color: black;
+}
+
+input,
+input:before,
+input:after {
+  -webkit-user-select: initial;
+  -khtml-user-select: initial;
+  -moz-user-select: initial;
+  -ms-user-select: initial;
+  user-select: initial;
+}
+
+::selection {
+  color: none;
+  background: none;
+}
+/* For Mozilla Firefox */
+input:-moz-selection {
+  color: none;
+  background: none;
 }

@@ -14,7 +14,6 @@ const SearchParams = React.forwardRef((props, ref) => {
   const [year, setYear] = useState(props.year);
   const [sortBy, setSortBy] = useState(props.sortBy);
   const [redirect, setRedirect] = useState(false);
-  console.log(language);
 
   const handleGender = gender => {
     const index = genders.indexOf(gender);
@@ -62,7 +61,7 @@ const SearchParams = React.forwardRef((props, ref) => {
     !!language
       ? (languageCheck = await getIsoLanguage(language))
       : (languageCheck = null);
-    !!year ? (yearCheck = await handleYear(year)) : (yearCheck = '');
+    !!year ? (yearCheck = await handleYear(year)) : (yearCheck = "");
 
     if (languageCheck !== "format error" && yearCheck !== "invalid year") {
       setGenders(genders);
@@ -220,6 +219,7 @@ const SearchParams = React.forwardRef((props, ref) => {
           className='genderInput'
           placeholder='english...'
           value={language}
+          autocomplete='off'
           onChange={e => setLanguage(e.target.value)}
         ></input>
         <h1 className='genderTitle'>Year</h1>
@@ -230,6 +230,7 @@ const SearchParams = React.forwardRef((props, ref) => {
           className='genderInput'
           placeholder='2002...'
           value={year}
+          autocomplete='off'
           onChange={e => setYear(e.target.value)}
         ></input>
         <h1 className='genderTitle'>Sort By</h1>
