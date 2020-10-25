@@ -169,4 +169,4 @@ const Discover = props => {
 
 export default Discover;
 
-// passer l'index dans les params de l'url
+// check prevnext quand index === 1 et prev

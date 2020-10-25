@@ -79,6 +79,8 @@
   width: 54vw;
   height: 6vh;
   text-align: center;
+  text-align-last: center;
+
 }
 
 .genderInput::placeholder {
@@ -138,5 +140,17 @@ input[type=number] {
 }
 
 .inputError {
-  border: 2px solid red
+  border: 3px solid red
+}
+
+
+@media not all and (min-resolution: 0.001dpcm) {
+  .genderInput {
+    text-indent: 50%;
+  }
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 }

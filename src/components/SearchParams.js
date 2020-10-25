@@ -26,36 +26,57 @@ const SearchParams = React.forwardRef((props, ref) => {
 
   const getIsoLanguage = e => {
     setLanguage(e);
-    e = String(e).toLocaleLowerCase();
+    const index = error.indexOf("language");
     const format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
-    if (format.test(language) || !!!ISO6391.getCode(language)) {
-      let errorCopy = [...error, "language"];
-      error.indexOf("language") !== -1 ? setError(error) : setError(errorCopy);
+    let errorCopy = [...error];
+    if (e.length === 0) {
+      errorCopy.length > 1
+        ? (errorCopy = errorCopy.splice(index, 1))
+        : (errorCopy = []);
+      setDisabled(false);
+      return setError(errorCopy);
+    }
+    if (format.test(e) || !!!ISO6391.getCode(e)) {
+      index !== -1
+        ? (errorCopy = errorCopy)
+        : (errorCopy = [...error, "language"]);
       setDisabled(true);
     } else {
+      errorCopy.length > 1
+        ? (errorCopy = errorCopy.splice(index, 1))
+        : (errorCopy = []);
       setDisabled(false);
-      const iso = ISO6391.getCode(language);
-      setLanguage(iso);
     }
+    return setError(errorCopy);
   };
 
   const handleYear = e => {
+    setYear(e);
     const actualDate = new Date();
     const actualYear = actualDate.getFullYear();
+    const index = error.indexOf("year");
+    let errorCopy = [...error];
+    if (e.length === 0) {
+      errorCopy.length > 1
+        ? (errorCopy = errorCopy.splice(index, 1))
+        : (errorCopy = []);
+      setDisabled(false);
+      return setError(errorCopy);
+    }
 
-    setYear(e);
-
-    if (!(year >= 1883 && year <= actualYear + 25)) {
+    if (!(e >= 1883 && e <= actualYear + 25)) {
       setDisabled(true);
-      let errorCopy = [...error, "year"];
-      error.indexOf("year") !== -1 ? setError(error) : setError(errorCopy);
+      index !== -1 ? (errorCopy = errorCopy) : (errorCopy = [...error, "year"]);
     } else {
-      setError([])
+      errorCopy.length > 1
+        ? (errorCopy = errorCopy.splice(index, 1))
+        : (errorCopy = []);
       setDisabled(false);
     }
+    return setError(errorCopy);
   };
-  
-  // CHECK HANDLE YEAR ERROR ARRAY 
+
+  // CHECK HANDLE YEAR ERROR ARRAY
 
   const handleEraseAll = () => {
     setGenders([]);
@@ -65,9 +86,11 @@ const SearchParams = React.forwardRef((props, ref) => {
   };
 
   const handleConfirm = async () => {
+    const iso = ISO6391.getCode(language);
     setError([]);
     setGenders(genders);
     setSortBy(sortBy);
+    setLanguage(iso);
     setRedirect(true);
   };
 
