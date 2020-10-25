@@ -14,6 +14,8 @@ const SearchParams = React.forwardRef((props, ref) => {
   const [year, setYear] = useState(props.year);
   const [sortBy, setSortBy] = useState(props.sortBy);
   const [redirect, setRedirect] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [error, setError] = useState([]);
 
   const handleGender = gender => {
     const index = genders.indexOf(gender);
@@ -22,30 +24,38 @@ const SearchParams = React.forwardRef((props, ref) => {
     setGenders(gendersCopy);
   };
 
-  const getIsoLanguage = lg =>
-    new Promise((successCallback, failureCallback) => {
-      lg = String(lg).toLocaleLowerCase();
-      const format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
-      if (format.test(lg)) failureCallback("format error");
-      else {
-        const iso = ISO6391.getCode(lg);
-        if (!iso) failureCallback("format error");
-        successCallback(iso);
-      }
-    });
+  const getIsoLanguage = e => {
+    setLanguage(e);
+    e = String(e).toLocaleLowerCase();
+    const format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
+    if (format.test(language) || !!!ISO6391.getCode(language)) {
+      let errorCopy = [...error, "language"];
+      error.indexOf("language") !== -1 ? setError(error) : setError(errorCopy);
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+      const iso = ISO6391.getCode(language);
+      setLanguage(iso);
+    }
+  };
 
-  const handleYear = y =>
-    new Promise((successCallback, failureCallback) => {
-      y = parseInt(y);
-      const actualDate = new Date();
-      const actualYear = actualDate.getFullYear();
+  const handleYear = e => {
+    const actualDate = new Date();
+    const actualYear = actualDate.getFullYear();
 
-      if (!(Number.isInteger(y) && (y >= 1883 && y <= actualYear + 25))) {
-        failureCallback("invalid year");
-      } else {
-        successCallback(y);
-      }
-    });
+    setYear(e);
+
+    if (!(year >= 1883 && year <= actualYear + 25)) {
+      setDisabled(true);
+      let errorCopy = [...error, "year"];
+      error.indexOf("year") !== -1 ? setError(error) : setError(errorCopy);
+    } else {
+      setError([])
+      setDisabled(false);
+    }
+  };
+  
+  // CHECK HANDLE YEAR ERROR ARRAY 
 
   const handleEraseAll = () => {
     setGenders([]);
@@ -55,27 +65,17 @@ const SearchParams = React.forwardRef((props, ref) => {
   };
 
   const handleConfirm = async () => {
-    let languageCheck;
-    let yearCheck;
-
-    !!language
-      ? (languageCheck = await getIsoLanguage(language))
-      : (languageCheck = null);
-    !!year ? (yearCheck = await handleYear(year)) : (yearCheck = "");
-
-    if (languageCheck !== "format error" && yearCheck !== "invalid year") {
-      setGenders(genders);
-      setLanguage(languageCheck);
-      setYear(yearCheck);
-      setSortBy(sortBy);
-      setRedirect(true);
-    } else if (languageCheck === "format error") {
-    } else if (yearCheck === "invalid year") {
-    }
+    setError([]);
+    setGenders(genders);
+    setSortBy(sortBy);
+    setRedirect(true);
   };
 
   const setActiveButton = gender =>
     genders.indexOf(gender) !== -1 ? "genderButtonActive" : "genderButton";
+
+  const setInputError = input =>
+    error.indexOf(input) !== -1 ? "genderInput inputError" : "genderInput";
 
   if (redirect) {
     setTimeout(() => handleModal(), 200);
@@ -216,22 +216,23 @@ const SearchParams = React.forwardRef((props, ref) => {
           type='text'
           id='lg'
           name='lg'
-          className='genderInput'
+          className={setInputError("language")}
           placeholder='english...'
           value={language}
           autoComplete='off'
-          onChange={e => setLanguage(e.target.value)}
+          onChange={e => getIsoLanguage(e.target.value)}
         ></input>
         <h1 className='genderTitle'>Year</h1>
         <input
-          type='text'
+          type='number'
           id='year'
           name='year'
-          className='genderInput'
-          placeholder='2002...'
+          min='1883'
+          className={setInputError("year")}
+          placeholder='min: 1883'
           value={year}
           autoComplete='off'
-          onChange={e => setYear(e.target.value)}
+          onChange={e => handleYear(e.target.value)}
         ></input>
         <h1 className='genderTitle'>Sort By</h1>
         <select
@@ -257,7 +258,11 @@ const SearchParams = React.forwardRef((props, ref) => {
               className={"actionsIcon"}
             />
           </button>
-          <button onClick={() => handleConfirm()} className='actionsButton'>
+          <button
+            onClick={() => handleConfirm()}
+            className='actionsButton'
+            disabled={disabled}
+          >
             <CheckCircleOutlineIcon
               style={{
                 fontSize: 60,
