@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Link, Redirect, useLocation } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import axios from "axios";
 import ISO6391 from "iso-639-1";
 import Modal from "@material-ui/core/Modal";
@@ -80,7 +80,7 @@ const Discover = props => {
   const pageSelect = () => {
     let pageArray = [];
     for (let i = 1; i <= maxPage; i++) {
-      pageArray.push(<option value={i}>{i}</option>);
+      pageArray.push(<option key={i} value={i}>{i}</option>);
     }
     console.log(pageArray);
     return pageArray;
@@ -140,6 +140,7 @@ const Discover = props => {
           </Grid>
           <div className='buttonContainer'>
             <button
+              disabled={index === '1' ? true : false}
               onClick={() => handlePrevNext("prev")}
               className='pageButtons'
             >
@@ -155,6 +156,7 @@ const Discover = props => {
             </select>
 
             <button
+            disabled={index === maxPage.toString() ? true : false}
               onClick={() => handlePrevNext("next")}
               className='pageButtons'
             >

@@ -14,6 +14,7 @@ const Upcoming = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState([]);
   const [movies, setMovies] = useState();
+  const [maxPage, setMaxPage] = useState("");
 
   const getMovie = useCallback(() => {
     setIsLoading(true);
@@ -23,6 +24,7 @@ const Upcoming = () => {
       )
       .then(response => {
         setMovies(response.data.results);
+        setMaxPage(response.data.total_pages);
         setIsLoading(false);
       })
       .catch(error => {
@@ -51,7 +53,12 @@ const Upcoming = () => {
               }}
               to={`/upcoming/${page - 1}`}
             >
-              <button className='pageButtons'>prev</button>
+              <button
+                className='pageButtons'
+                disabled={page === 1 ? true : false}
+              >
+                prev
+              </button>
             </Link>
             <button disabled={true} className='pageButtons'>
               {page}
@@ -62,7 +69,12 @@ const Upcoming = () => {
               }}
               to={`/upcoming/${page + 1}`}
             >
-              <button className='pageButtons'>next</button>
+              <button
+                className='pageButtons'
+                disabled={page === maxPage ? true : false}
+              >
+                next
+              </button>
             </Link>
           </div>
         </React.Fragment>
