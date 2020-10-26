@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
@@ -10,15 +11,16 @@ const CarouselMovies = props => {
   const displayMovie = slides.map(movie => {
     return (
       <div className='imgSlideContainer'>
-        
-        <img
-          src={"https://image.tmdb.org/t/p/w500/" + movie.poster_path}
-          alt={movie.original_title}
-          className='imgMovie'
-        />
-        <div className='movieTitle'>
-          <p>{movie.title}</p>
-        </div>
+        <Link to={`/details/${movie.id}`} style={{ textDecoration: "none" }}>
+          <img
+            src={"https://image.tmdb.org/t/p/w500/" + movie.poster_path}
+            alt={movie.original_title}
+            className='imgMovie'
+          />
+          <div className='movieTitle'>
+            <p>{movie.title}</p>
+          </div>
+        </Link>
       </div>
     );
   });

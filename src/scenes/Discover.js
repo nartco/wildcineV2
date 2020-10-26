@@ -25,7 +25,6 @@ const Discover = props => {
   const [maxPage, setMaxPage] = useState(null);
   const [index, setIndex] = useState(parseInt(page));
 
-  console.log(index);
 
   const ref = React.createRef();
 
@@ -45,7 +44,6 @@ const Discover = props => {
         }`
       )
       .then(response => {
-        console.log(response);
         setMovies(response.data.results);
         setMaxPage(response.data.total_pages);
         setIsLoading(false);
@@ -82,7 +80,6 @@ const Discover = props => {
     for (let i = 1; i <= maxPage; i++) {
       pageArray.push(<option key={i} value={i}>{i}</option>);
     }
-    console.log(pageArray);
     return pageArray;
   };
 

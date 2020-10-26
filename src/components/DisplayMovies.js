@@ -6,6 +6,7 @@ import "../css/displayMovies.css";
 
 const DisplayMovie = props => {
   const { movies } = props;
+  console.log(movies)
   if (movies.length === 0) {
     return (
       <div className='movieContainers'>
@@ -16,7 +17,7 @@ const DisplayMovie = props => {
   return movies.map((movie, i) => (
     <Grid item xs={12} sm={3} lg={3} key={i}>
       <div className='movieContainers'>
-        <Link to='/movie' style={{ textDecoration: "none" }}>
+        <Link to={`/details/${movie.id}`} style={{ textDecoration: "none" }}>
           <div className='titleContainer'>
             <h1 className='displayTitle'>{movie.title} </h1>
           </div>

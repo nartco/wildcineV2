@@ -48,7 +48,7 @@ const Home = () => {
   }, [getMovies]);
 
   return (
-    <div>
+    <div className="home">
       {isLoading ? (
         <LoaderCustom />
       ) : (

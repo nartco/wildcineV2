@@ -1,7 +1,10 @@
+.home {
+  margin-top: 60px;
+}
 .homeTitle {
   color: #26c485;
   font-family: "Open Sans", sans-serif;
-  margin-top: 80px;
+  margin-top: 30px;
   margin-bottom: 50px;
   text-align: center;
   font-size: 1.8rem;

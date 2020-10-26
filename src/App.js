@@ -24,7 +24,7 @@ export default function App() {
         <Route path='/upcoming/:page'>
           <Upcoming />
         </Route>
-        <Route path='/details'>
+        <Route path='/details/:id'>
           <MovieDetails />
         </Route>
         <Route path='/favorite'>
