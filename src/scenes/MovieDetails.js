@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import noPoster from "../assets/noposter.jpg";
+import LoaderCustom from "../components/Loader";
+
+import "../css/movieDetails.css";
 
 const MovieDetails = () => {
   let { id } = useParams();
-
 
   const [movie, setMovie] = useState(null);
   const [similar, setSimilar] = useState(null);
@@ -12,8 +15,6 @@ const MovieDetails = () => {
   const [credits, setCredits] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState([]);
-
-  
 
   const getMovies = useCallback(() => {
     setIsLoading(true);
@@ -44,7 +45,7 @@ const MovieDetails = () => {
       });
   }, [errors]);
 
-  console.log({movie}, {similar}, {video}, {credits})
+  console.log({ movie }, { similar }, { video }, { credits });
 
   useEffect(() => {
     getMovies();
@@ -53,7 +54,26 @@ const MovieDetails = () => {
     // };
   }, [getMovies]);
 
-  return <div></div>;
+  if (isLoading) return <LoaderCustom />;
+
+  return (
+    <div className='detailsContainer'>
+      <img
+        src={
+          movie.poster_path
+            ? "https://image.tmdb.org/t/p/w780/" + movie.poster_path
+            : noPoster
+        }
+        alt={movie.original_title}
+        className='detailsImage'
+      />
+      <div className='detailsInfos'>
+          <h1 className="display">{movie.original_title}</h1>
+          <p className="detailsParagraph">{movie.overview}</p>
+          <h2 className="detailsParagraph">{movie.release_date ? movie.release_date.replaceAll("-", " / ") : 'no release date'}</h2>
+      </div>
+    </div>
+  );
 };
 
 export default MovieDetails;
