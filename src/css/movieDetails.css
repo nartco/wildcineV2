@@ -18,8 +18,10 @@
   text-align: center;
 }
 
-.detailsInfos > h1 {
-  margin-bottom: 30px;
+.detailsInfos > h2 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 2px green;
 }
 
 .detailsInfos > p {
@@ -27,8 +29,20 @@
   margin-bottom: 20px;
 }
 
-
-.detailsInfos > h2 {
+.detailsInfos > h3 {
+  margin: 0 auto 20px auto;
+  border: 3px solid #26c485;
+  border-radius: 40px;
+  width: 10rem;
   font-size: 1.2rem;
-  margin-bottom: 30px;
+}
+
+.circleBar{
+  margin: auto auto 10px auto;
+  width: 4vw;
+}
+
+.detailsInfos > .score {
+  margin-top: 1px;
+  margin-bottom: 10px;
 }

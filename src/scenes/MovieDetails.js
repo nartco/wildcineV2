@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import Line from "../components/Line";
 import noPoster from "../assets/noposter.jpg";
 import LoaderCustom from "../components/Loader";
 
@@ -68,9 +71,29 @@ const MovieDetails = () => {
         className='detailsImage'
       />
       <div className='detailsInfos'>
-          <h1 className="display">{movie.original_title}</h1>
-          <p className="detailsParagraph">{movie.overview}</p>
-          <h2 className="detailsParagraph">{movie.release_date ? movie.release_date.replaceAll("-", " / ") : 'no release date'}</h2>
+        <h2 className='display'>{movie.original_title}</h2>
+        <p className='detailsParagraph'>{movie.overview}</p>
+        <h3 className='detailsParagraph'>
+          {movie.release_date
+            ? movie.release_date.replaceAll("-", " / ")
+            : "no release date"}
+        </h3>
+        <p className='score'>User Score</p>
+        <div className='circleBar'>
+          <CircularProgressbar
+            value={movie.vote_average * 10}
+            text={`${movie.vote_average * 10}%`}
+            strokeWidth={7}
+            styles={buildStyles({
+              textColor: "#26c485",
+              trailColor: "rgba(38, 193, 129, 0.3)",
+              pathColor: "#26c485"
+            })}
+          />
+        </div>
+       
+
+        <Line color='#26C485' />
       </div>
     </div>
   );
