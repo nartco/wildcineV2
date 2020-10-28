@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+import StarIcon from "@material-ui/icons/Star";
 import Line from "../components/Line";
 import noPoster from "../assets/noposter.jpg";
 import LoaderCustom from "../components/Loader";
@@ -36,7 +38,7 @@ const MovieDetails = () => {
       .then(
         axios.spread((...responses) => {
           setMovie(responses[0].data);
-          setSimilar(responses[1].data.results);
+          setSimilar(responses[1].data.results.splice(9, 10));
           setVideo(responses[2].data.results);
           setCredits(responses[3].data);
           setIsLoading(false);
@@ -46,7 +48,7 @@ const MovieDetails = () => {
         setErrors(errors.concat(error.message));
         setIsLoading(false);
       });
-  }, [errors]);
+  }, [errors, id]);
 
   console.log({ movie }, { similar }, { video }, { credits });
 
@@ -56,6 +58,18 @@ const MovieDetails = () => {
     //   cleanup;
     // };
   }, [getMovies]);
+
+  const similarMovies = (path, name, id) => (
+    <div className='similar' key={id}>
+      <Link to={`/details/${id}`} style={{ textDecoration: "none" }}>
+        <img
+          src={!!path ? `https://image.tmdb.org/t/p/w500/${path}` : noPoster}
+          alt={name}
+        />
+        <p>{name}</p>
+      </Link>
+    </div>
+  );
 
   const castPresentation = (path, name, id, character = null) => (
     <div className='cast' key={id}>
@@ -83,6 +97,13 @@ const MovieDetails = () => {
       />
       <div className='detailsInfos'>
         <h2 className='display'>{movie.original_title}</h2>
+        <p>
+          [
+          {movie.genres.map(
+            (genre, i) => ` ${i > 0 ? " | " : ""}${genre.name} `
+          )}
+          ]
+        </p>
         <p className='detailsParagraph'>{movie.overview}</p>
         <h3 className='detailsParagraph'>
           {movie.release_date
@@ -109,7 +130,7 @@ const MovieDetails = () => {
         <Line color='#26C485' />
 
         {video.length > 0 && (
-          <div className="trailer">
+          <div className='trailer'>
             <iframe
               width='500'
               height='345'
@@ -137,6 +158,13 @@ const MovieDetails = () => {
                 member.id,
                 member.character
               )
+            )}
+        </div>
+        <h1 className='secondSectionTitle'>Similar Movies</h1>
+        <div className='similarContainer'>
+          {similar &&
+            similar.map(movie =>
+              similarMovies(movie.poster_path, movie.original_title, movie.id)
             )}
         </div>
       </div>
