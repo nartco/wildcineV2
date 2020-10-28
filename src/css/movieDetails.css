@@ -14,13 +14,14 @@
   width: 26vw;
 }
 .detailsInfos {
-  margin: 7vh 0 0 35vw;
+  margin: 5vh 0 0 35vw;
   width: 60vw;
   text-align: center;
 }
 
 .detailsInfos > h2 {
   font-size: 2rem;
+  margin-top: 10px;
   margin-bottom: 40px;
   text-shadow: 1px 1px 2px green;
 }
@@ -116,6 +117,6 @@
 }
 
 .similarContainer > .similar {
-  margin: 0 10px 80px 0;
+  margin: 0 15px 80px 0;
   font-size: 0.8rem;
 }

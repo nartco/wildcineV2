@@ -86,6 +86,7 @@ const MovieDetails = () => {
 
   return (
     <div className='detailsContainer'>
+      
       <img
         src={
           movie.poster_path
@@ -96,6 +97,15 @@ const MovieDetails = () => {
         className='detailsImage'
       />
       <div className='detailsInfos'>
+      <button onClick={() => {}} className='actionsButton'>
+        <StarBorderIcon
+          style={{
+            fontSize: 60,
+            transition: "0.1s"
+          }}
+          className={"actionsIcon"}
+        />
+      </button>
         <h2 className='display'>{movie.original_title}</h2>
         <p>
           [
