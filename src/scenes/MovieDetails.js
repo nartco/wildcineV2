@@ -57,6 +57,17 @@ const MovieDetails = () => {
     // };
   }, [getMovies]);
 
+  const castPresentation = (path, name, id, character = null) => (
+    <div className='cast' key={id}>
+      <img
+        src={!!path ? `https://image.tmdb.org/t/p/w500/${path}` : noPoster}
+        alt={name}
+      />
+      <p>{name}</p>
+      {character ? <p>{character}</p> : null}
+    </div>
+  );
+
   if (isLoading) return <LoaderCustom />;
 
   return (
@@ -78,22 +89,45 @@ const MovieDetails = () => {
             ? movie.release_date.replaceAll("-", " / ")
             : "no release date"}
         </h3>
-        <p className='score'>User Score</p>
+
         <div className='circleBar'>
+          <p className='score'>User Score</p>
           <CircularProgressbar
+            className='circle'
             value={movie.vote_average * 10}
             text={`${movie.vote_average * 10}%`}
             strokeWidth={7}
             styles={buildStyles({
               textColor: "#26c485",
+              textSize: "23px",
               trailColor: "rgba(38, 193, 129, 0.3)",
               pathColor: "#26c485"
             })}
           />
         </div>
-       
 
         <Line color='#26C485' />
+        <h1 className='secondSectionTitle'>Director(s)</h1>
+        <div className='castContainer crewJustify'>
+          {credits &&
+            credits.crew
+              .filter(member => member.job === "Director")
+              .map(member =>
+                castPresentation(member.profile_path, member.name, member.id)
+              )}
+        </div>
+        <h1 className='secondSectionTitle'>Cast</h1>
+        <div className='castContainer castJustify'>
+          {credits &&
+            credits.cast.map(member =>
+              castPresentation(
+                member.profile_path,
+                member.name,
+                member.id,
+                member.character
+              )
+            )}
+        </div>
       </div>
     </div>
   );

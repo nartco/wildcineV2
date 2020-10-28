@@ -37,12 +37,42 @@
   font-size: 1.2rem;
 }
 
-.circleBar{
+.circleBar {
   margin: auto auto 10px auto;
-  width: 4vw;
+  padding: 10 10;
+  width: 8rem;
 }
 
-.detailsInfos > .score {
-  margin-top: 1px;
-  margin-bottom: 10px;
+.circle {
+  margin: 10px 5px;
+  width: 3.5rem;
+}
+
+.secondSectionTitle {
+  margin: 25px 0;
+  font-size: 1.3rem;
+  text-shadow: 1px 1px 2px green;
+}
+
+.castContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.crewJustify {
+   justify-content: center;
+}
+.castJustify {
+  justify-content: space-between;
+}
+
+.cast {
+  margin: 0 10px;
+  font-size: 1vw;
+}
+.cast > img {
+  width: 10vw;
 }

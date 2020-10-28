@@ -10,7 +10,7 @@ const CarouselMovies = props => {
 
   const displayMovie = slides.map(movie => {
     return (
-      <div className='imgSlideContainer'>
+      <div className='imgSlideContainer' key={movie.id}>
         <Link to={`/details/${movie.id}`} style={{ textDecoration: "none" }}>
           <img
             src={"https://image.tmdb.org/t/p/w500/" + movie.poster_path}
