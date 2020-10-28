@@ -107,6 +107,17 @@ const MovieDetails = () => {
         </div>
 
         <Line color='#26C485' />
+
+        {video.length > 0 && (
+          <div className="trailer">
+            <iframe
+              width='500'
+              height='345'
+              src={`https://www.youtube.com/embed/${video[video.findIndex(video => video.type === "Trailer")].key}`}
+            ></iframe>
+          </div>
+        )}
+
         <h1 className='secondSectionTitle'>Director(s)</h1>
         <div className='castContainer crewJustify'>
           {credits &&
