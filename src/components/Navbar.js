@@ -29,12 +29,17 @@ const Navbar = () => {
           <SearchBar />
         </li>
         <li className={show ? "link" : "link hidden"}>
-          <NavLink style={{ textDecoration: "none", color: "#fff"}} to='/'>
+          <NavLink
+            onClick={() => setShow(false)}
+            style={{ textDecoration: "none", color: "#fff" }}
+            to='/'
+          >
             <p className='navSection'>HOME</p>
           </NavLink>
         </li>
         <li className={show ? "link" : "link hidden"}>
           <NavLink
+            onClick={() => setShow(false)}
             style={{ textDecoration: "none", color: "#fff" }}
             to='/discover/?page=1'
           >
@@ -43,6 +48,7 @@ const Navbar = () => {
         </li>
         <li className={show ? "link" : "link hidden"}>
           <NavLink
+            onClick={() => setShow(false)}
             style={{ textDecoration: "none", color: "#fff" }}
             to='/upcoming/1'
           >
@@ -51,6 +57,7 @@ const Navbar = () => {
         </li>
         <li className={show ? "link" : "link hidden"}>
           <NavLink
+            onClick={() => setShow(false)}
             style={{ textDecoration: "none", color: "#fff" }}
             to='/favorite'
           >
@@ -59,6 +66,7 @@ const Navbar = () => {
         </li>
         <li className={show ? "link searchMobile" : "link searchMobile hidden"}>
           <NavLink
+            onClick={() => setShow(false)}
             style={{ textDecoration: "none", color: "#fff" }}
             to='/favorite'
           >

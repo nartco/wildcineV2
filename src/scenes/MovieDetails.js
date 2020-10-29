@@ -72,7 +72,7 @@ const MovieDetails = () => {
   );
 
   const castPresentation = (path, name, id, character = null) => (
-    <div className='cast' key={id}>
+    <div className='cast' key={id + Math.random(0.5)}>
       <img
         src={!!path ? `https://image.tmdb.org/t/p/w500/${path}` : noPoster}
         alt={name}
@@ -86,7 +86,6 @@ const MovieDetails = () => {
 
   return (
     <div className='detailsContainer'>
-      
       <img
         src={
           movie.poster_path
@@ -97,15 +96,15 @@ const MovieDetails = () => {
         className='detailsImage'
       />
       <div className='detailsInfos'>
-      <button onClick={() => {}} className='actionsButton'>
-        <StarBorderIcon
-          style={{
-            fontSize: 60,
-            transition: "0.1s"
-          }}
-          className={"actionsIcon"}
-        />
-      </button>
+        <button onClick={() => {}} className='actionsButton'>
+          <StarBorderIcon
+            style={{
+              fontSize: 50,
+              transition: "0.1s"
+            }}
+            className={"actionsIcon"}
+          />
+        </button>
         <h2 className='display'>{movie.original_title}</h2>
         <p>
           [
@@ -139,7 +138,8 @@ const MovieDetails = () => {
 
         <Line color='#26C485' />
 
-        {video.length > 0 && (
+        {video.length > 0 &&
+        video.findIndex(video => video.type === "Trailer") !== -1 ? (
           <div className='trailer'>
             <iframe
               width='500'
@@ -147,7 +147,17 @@ const MovieDetails = () => {
               src={`https://www.youtube.com/embed/${video[video.findIndex(video => video.type === "Trailer")].key}`}
             ></iframe>
           </div>
-        )}
+        ) : null}
+
+        {/* {video.length > 0 && (
+          <div className='trailer'>
+            <iframe
+              width='500'
+              height='345'
+              src={`https://www.youtube.com/embed/${video[video.findIndex(video => video.type === "Trailer")].key}`}
+            ></iframe>
+          </div>
+        )} */}
 
         <h1 className='secondSectionTitle'>Director(s)</h1>
         <div className='castContainer crewJustify'>
@@ -170,13 +180,16 @@ const MovieDetails = () => {
               )
             )}
         </div>
-        <h1 className='secondSectionTitle'>Similar Movies</h1>
-        <div className='similarContainer'>
-          {similar &&
-            similar.map(movie =>
-              similarMovies(movie.poster_path, movie.original_title, movie.id)
-            )}
-        </div>
+        {similar.length > 0 && (
+          <React.Fragment>
+            <h1 className='secondSectionTitle'>Similar Movies</h1>
+            <div className='similarContainer'>
+              {similar.map(movie =>
+                similarMovies(movie.poster_path, movie.original_title, movie.id)
+              )}
+            </div>
+          </React.Fragment>
+        )}
       </div>
     </div>
   );

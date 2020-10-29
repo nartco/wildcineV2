@@ -20,7 +20,7 @@ const Upcoming = () => {
     setIsLoading(true);
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=en-US&page=${page}`
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=en-US&page=${page}&region=US`
       )
       .then(response => {
         setMovies(response.data.results);
