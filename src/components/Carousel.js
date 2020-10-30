@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import noPoster from "../assets/noposter.jpg";
 
 import "../css/carousel.css";
 
 const CarouselMovies = props => {
-  let { slides } = props;
+  let { slides, play } = props;
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+  }, [window]);
 
   const displayMovie = slides.map(movie => {
     return (
       <div className='imgSlideContainer' key={movie.id}>
         <Link to={`/details/${movie.id}`} style={{ textDecoration: "none" }}>
           <img
-            src={"https://image.tmdb.org/t/p/w500/" + movie.poster_path}
+            src={
+              !!movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                : noPoster
+            }
             alt={movie.original_title}
             className='imgMovie'
           />
@@ -31,7 +43,7 @@ const CarouselMovies = props => {
         additionalTransfrom={0}
         arrows
         itemClass='slides'
-        autoPlay={true}
+        autoPlay={width < 460 && play === false ? false : true}
         autoPlaySpeed={2100}
         centerMode={true}
         containerClass='container-with-dots'

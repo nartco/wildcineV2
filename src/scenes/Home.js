@@ -56,18 +56,18 @@ const Home = () => {
           <Link style={{ textDecoration: "none", color: "#26c485" }} to='/'>
             <h1 className='homeTitle'>Top Rated</h1>{" "}
           </Link>
-          <Carousel slides={topRated} />
+          <Carousel slides={topRated} play={true} />
           <Link
             style={{ textDecoration: "none", color: "#26c485" }}
             to='upcoming'
           >
             <h1 className='homeTitle'>Upcoming</h1>{" "}
           </Link>
-          <Carousel slides={upcoming} />
+          <Carousel slides={upcoming} play={false}  />
           <Link style={{ textDecoration: "none", color: "#26c485" }} to='/'>
             <h1 className='homeTitle'>Popular</h1>{" "}
           </Link>
-          <Carousel slides={popular} />
+          <Carousel slides={popular} play={false} />
         </div>
       )}
     </div>

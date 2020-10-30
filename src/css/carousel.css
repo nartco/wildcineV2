@@ -1,12 +1,13 @@
 .imgMovie {
-  width: 70%;
+  width: 80%;
   height: 70%;
-  min-height: 27vw;
+  min-height: 30vw;
 }
 
 .movieTitle {
   color: #26c485;
-  margin: 10px auto;
+  margin: 10px 27px;
+
   text-align: center;
   font-family: "Open Sans", sans-serif;
   font-size: 0.7em;
@@ -22,4 +23,11 @@
 
 .react-multiple-carousel__arrow::before {
   color: #26c485;
+}
+
+@media all and (max-width: 460px) {
+  .imgMovie {
+    width: calc(100% - 1.3em);
+    height: 73vw;
+  }
 }
