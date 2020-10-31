@@ -9,7 +9,8 @@ import queryString from "query-string";
 import SearchParams from "../components/SearchParams";
 import DisplayMovies from "../components/DisplayMovies";
 import LoaderCustom from "../components/Loader";
-import NavigationButtons from "../components/NavigationButtons"
+import NavigationButtons from "../components/NavigationButtons";
+import Error from "../components/Error";
 
 const Discover = props => {
   const location = useLocation();
@@ -91,6 +92,10 @@ const Discover = props => {
     setIndex(page);
     getMovie();
   }, [getMovie, page]);
+
+  if (errors.length > 0) {
+    return <Error />;
+  }
 
   if (redirect) {
     return (

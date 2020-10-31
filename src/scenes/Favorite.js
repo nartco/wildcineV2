@@ -1,11 +1,11 @@
-import React from "react";
-import Loader from "../components/Loader";
-import '../css/loader.css'
+import React from 'react'
 
 const Favorite = () => {
   return (
-      <Loader />
-  );
-};
+    <div>
+      
+    </div>
+  )
+}
 
-export default Favorite;
+export default Favorite

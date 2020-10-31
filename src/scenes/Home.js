@@ -2,9 +2,14 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
+import Error from "../components/Error";
+
+
 import Carousel from "../components/Carousel";
 import "../css/home.css";
 import LoaderCustom from "../components/Loader";
+import '../css/loader.css';
+
 
 
 const Home = () => {
@@ -46,6 +51,11 @@ const Home = () => {
     //   cleanup;
     // };
   }, [getMovies]);
+
+
+  if (errors.length > 0) {
+    return <Error />;
+  }
 
   return (
     <div className="home">

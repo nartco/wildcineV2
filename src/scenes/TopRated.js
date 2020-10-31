@@ -4,6 +4,7 @@ import { useLocation, Redirect } from "react-router-dom";
 import queryString from "query-string";
 import axios from "axios";
 
+import Error from "../components/Error";
 import NavigationButtons from "../components/NavigationButtons";
 import DisplayMovies from "../components/DisplayMovies";
 import LoaderCustom from "../components/Loader";
@@ -72,6 +73,11 @@ const TopRated = () => {
     setIndex(page);
     getMovie();
   }, [getMovie, page]);
+
+
+  if (errors.length > 0) {
+    return <Error />;
+  }
 
   if (redirect) {
     return <Redirect push to={`/top-rated/?page=${index}`} />;

@@ -1,0 +1,17 @@
+.errorContainer {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: auto auto;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100vh;
+}
+.errorContainer > div {
+  margin: auto 30px;
+}
+.errorMessage {
+  font-size: 1.4rem;
+  color: #26c485;
+}
