@@ -35,7 +35,7 @@ const Popular = () => {
         setErrors(errors.concat(error.message));
         setIsLoading(false);
       });
-  }, [page, errors]);
+  }, [index, errors]);
 
   const handlePrevNext = e => {
     if (index <= 0) {

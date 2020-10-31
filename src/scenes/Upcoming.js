@@ -35,7 +35,7 @@ const Upcoming = () => {
         setErrors(errors.concat(error.message));
         setIsLoading(false);
       });
-  }, [page, errors]);
+  }, [errors, index]);
 
   const handlePrevNext = e => {
     if (index <= 0) {

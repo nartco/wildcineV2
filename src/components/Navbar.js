@@ -28,7 +28,7 @@ const Navbar = () => {
         <li className={show ? "search" : "search hidden"}>
           <SearchBar />
         </li>
-        <li className={show ? "link" : "link hidden"}>
+        <li className={show ? "link order" : "link order hidden"}>
           <NavLink
             onClick={() => setShow(false)}
             style={{ textDecoration: "none", color: "#fff" }}
@@ -37,7 +37,7 @@ const Navbar = () => {
             <p className='navSection'>HOME</p>
           </NavLink>
         </li>
-        <li className={show ? "link" : "link hidden"}>
+        <li className={show ? "link order" : "link  order hidden"}>
           <NavLink
             onClick={() => setShow(false)}
             style={{ textDecoration: "none", color: "#fff" }}
@@ -46,7 +46,34 @@ const Navbar = () => {
             <p className='navSection'>DISCOVER</p>
           </NavLink>
         </li>
-        <li className={show ? "link" : "link hidden"}>
+        <li className={show ? "link order mobile" : "link order mobile hidden"}>
+          <NavLink
+            onClick={() => setShow(false)}
+            style={{ textDecoration: "none", color: "#fff" }}
+            to='/'
+          >
+            <p className='navSection'>SEARCH</p>
+          </NavLink>
+        </li>
+        <li className={show ? "link order mobile" : "link order mobile hidden"}>
+          <NavLink
+            onClick={() => setShow(false)}
+            style={{ textDecoration: "none", color: "#fff" }}
+            to='/top-rated/?page=1'
+          >
+            <p className='navSection'>TOP RATED</p>
+          </NavLink>
+        </li>
+        <li className={show ? "link order mobile" : "link order mobile hidden"}>
+          <NavLink
+            onClick={() => setShow(false)}
+            style={{ textDecoration: "none", color: "#fff" }}
+            to='/popular/?page=1'
+          >
+            <p className='navSection'>POPULAR</p>
+          </NavLink>
+        </li>
+        <li className={show ? "link order mobile" : "link order mobile hidden"}>
           <NavLink
             onClick={() => setShow(false)}
             style={{ textDecoration: "none", color: "#fff" }}
@@ -55,7 +82,21 @@ const Navbar = () => {
             <p className='navSection'>UPCOMING</p>
           </NavLink>
         </li>
-        <li className={show ? "link" : "link hidden"}>
+        <li className={show ? " order desktop dropdown" : "dropdown desktop order hidden"}>
+          <button disabled className='dropbtn'>MOVIES</button>
+          <div className='dropdown-content'>
+            <NavLink className='subMenu' to='/popular/?page=1'>
+              Popular
+            </NavLink>
+            <NavLink className='subMenu' to='/top-rated/?page=1'>
+              Top Rated
+            </NavLink>
+            <NavLink className='subMenu' to='/upcoming/?page=1'>
+              Upcoming
+            </NavLink>
+          </div>
+        </li>
+        <li className={show ? "link order" : "link order hidden"}>
           <NavLink
             onClick={() => setShow(false)}
             style={{ textDecoration: "none", color: "#fff" }}
@@ -64,15 +105,8 @@ const Navbar = () => {
             <p className='navSection'>FAVORITE</p>
           </NavLink>
         </li>
-        <li className={show ? "link searchMobile" : "link searchMobile hidden"}>
-          <NavLink
-            onClick={() => setShow(false)}
-            style={{ textDecoration: "none", color: "#fff" }}
-            to='/favorite'
-          >
-            <p className='navSection'>SEARCH</p>
-          </NavLink>
-        </li>
+       
+       
         <li className='btn' onClick={() => setShow(!show)}>
           {show ? (
             <Clear style={{ color: "#26c495", fontSize: 30 }} />
