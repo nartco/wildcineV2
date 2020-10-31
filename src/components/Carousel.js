@@ -14,7 +14,7 @@ const CarouselMovies = props => {
     window.addEventListener("resize", () => {
       setWidth(window.innerWidth);
     });
-  }, [window]);
+  }, []);
 
   const displayMovie = slides.map(movie => {
     return (

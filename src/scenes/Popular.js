@@ -8,7 +8,7 @@ import NavigationButtons from "../components/NavigationButtons";
 import DisplayMovies from "../components/DisplayMovies";
 import LoaderCustom from "../components/Loader";
 
-const Upcoming = () => {
+const Popular = () => {
   const location = useLocation();
   let { page } = queryString.parse(location.search);
 
@@ -24,7 +24,7 @@ const Upcoming = () => {
     setIsLoading(true);
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=en-US&page=${index}&region=US`
+        `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=en-US&page=${index}`
       )
       .then(response => {
         setMovies(response.data.results);
@@ -74,7 +74,7 @@ const Upcoming = () => {
   }, [getMovie, page]);
 
   if (redirect) {
-    return <Redirect push to={`/upcoming/?page=${index}`} />;
+    return <Redirect push to={`/popular/?page=${index}`} />;
   }
 
   return (
@@ -99,6 +99,6 @@ const Upcoming = () => {
   );
 };
 
-export default Upcoming;
+export default Popular;
 
 // passer l'index dans les params de l'url

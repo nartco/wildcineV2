@@ -9,6 +9,7 @@ import queryString from "query-string";
 import SearchParams from "../components/SearchParams";
 import DisplayMovies from "../components/DisplayMovies";
 import LoaderCustom from "../components/Loader";
+import NavigationButtons from "../components/NavigationButtons"
 
 const Discover = props => {
   const location = useLocation();
@@ -24,7 +25,6 @@ const Discover = props => {
   const [redirect, setRedirect] = useState(false);
   const [maxPage, setMaxPage] = useState(null);
   const [index, setIndex] = useState(parseInt(page));
-
 
   const ref = React.createRef();
 
@@ -78,7 +78,11 @@ const Discover = props => {
   const pageSelect = () => {
     let pageArray = [];
     for (let i = 1; i <= maxPage; i++) {
-      pageArray.push(<option key={i} value={i}>{i}</option>);
+      pageArray.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      );
     }
     return pageArray;
   };
@@ -135,31 +139,13 @@ const Discover = props => {
           <Grid container style={{ marginTop: "10vh" }} spacing={1}>
             <DisplayMovies movies={movies} />
           </Grid>
-          <div className='buttonContainer'>
-            <button
-              disabled={index === '1' ? true : false}
-              onClick={() => handlePrevNext("prev")}
-              className='pageButtons'
-            >
-              prev
-            </button>
-
-            <select
-              className='pageButtons pageSelect'
-              value={index}
-              onChange={e => handleSelectPage(e.target.value)}
-            >
-              {pageSelect()}
-            </select>
-
-            <button
-            disabled={index === maxPage.toString() ? true : false}
-              onClick={() => handlePrevNext("next")}
-              className='pageButtons'
-            >
-              next
-            </button>
-          </div>
+          <NavigationButtons
+            handleSelectPage={handleSelectPage}
+            handlePrevNext={handlePrevNext}
+            index={index}
+            maxPage={maxPage}
+            pageSelect={pageSelect}
+          />
         </React.Fragment>
       )}
     </div>

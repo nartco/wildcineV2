@@ -50,7 +50,7 @@ const Navbar = () => {
           <NavLink
             onClick={() => setShow(false)}
             style={{ textDecoration: "none", color: "#fff" }}
-            to='/upcoming/1'
+            to='/upcoming/?page=1'
           >
             <p className='navSection'>UPCOMING</p>
           </NavLink>

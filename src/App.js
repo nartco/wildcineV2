@@ -6,6 +6,8 @@ import Search from "./scenes/Search";
 import Favorite from "./scenes/Favorite";
 import MovieDetails from "./scenes/MovieDetails";
 import Upcoming from "./scenes/Upcoming";
+import Popular from "./scenes/Popular";
+import TopRated from "./scenes/TopRated";
 import Navbar from "./components/Navbar";
 
 import "./css/App.css";
@@ -21,8 +23,14 @@ export default function App() {
         <Route path='/discover/*'>
           <Discover />
         </Route>
-        <Route path='/upcoming/:page'>
+        <Route path='/upcoming/*'>
           <Upcoming />
+        </Route>
+        <Route path='/popular/*'>
+          <Popular />
+        </Route>
+        <Route path='/top-rated/*'>
+          <TopRated />
         </Route>
         <Route path='/details/:id'>
           <MovieDetails />
