@@ -50,8 +50,6 @@ const MovieDetails = () => {
       });
   }, [errors, id]);
 
-  console.log({ movie }, { similar }, { video }, { credits });
-
   useEffect(() => {
     getMovies();
     // return () => {

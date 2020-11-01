@@ -38,7 +38,7 @@ export default function App() {
         <Route path='/favorite'>
           <Favorite />
         </Route>
-        <Route path='/search'>
+        <Route path='/search/*'>
           <Search />
         </Route>
       </Switch>

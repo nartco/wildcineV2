@@ -9,6 +9,7 @@ import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
+  
 
   return (
     <nav>
@@ -50,7 +51,7 @@ const Navbar = () => {
           <NavLink
             onClick={() => setShow(false)}
             style={{ textDecoration: "none", color: "#fff" }}
-            to='/'
+            to='/search'
           >
             <p className='navSection'>SEARCH</p>
           </NavLink>

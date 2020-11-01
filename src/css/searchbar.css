@@ -17,9 +17,8 @@
   color: #26c485;
 }
 
-
 .searchBtn {
-  position: sticky;
+   position: sticky;
   float: right;
   width: 35px;
   height: 35px;
@@ -48,18 +47,19 @@
   font-weight: bold;
   flex-wrap: nowrap;
   opacity: 0;
+  caret-color: #26c485;
+
 }
 
-
 @media all and (max-width: 900px) {
-    .searchTxt {
-        opacity: 1;
-        width: 210px;
-        padding: 0 6px;
-      }
-      
-      .searchBtn {
-        background: white;
-        color: #26c485;
-      }
+  .searchTxt {
+    opacity: 1;
+    width: 210px;
+    padding: 0 6px;
+  }
+
+  .searchBtn {
+    background: white;
+    color: #26c485;
+  }
 }
