@@ -51,6 +51,10 @@
   width: 3.5rem;
 }
 
+.backButton {
+  margin-top: 10vh;
+}
+
 .secondSectionTitle {
   margin: 25px 0;
   font-size: 1.3rem;

@@ -1,0 +1,21 @@
+.searchContainer div {
+  margin-top: 8vh;
+}
+
+
+.searchM {
+  display: none;
+  flex: 1;
+  margin-top: 10vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media all and (max-width: 900px) {
+  .searchM {
+    display: flex;
+  }
+  .searchContainer div {
+    margin-top: 2vh;
+  }
+}

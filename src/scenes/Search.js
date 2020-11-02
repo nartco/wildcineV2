@@ -9,10 +9,13 @@ import NavigationButtons from "../components/NavigationButtons";
 import DisplayMovies from "../components/DisplayMovies";
 import LoaderCustom from "../components/Loader";
 
+import "../css/search.css";
+
 const Search = () => {
   const location = useLocation();
   let { page, q } = queryString.parse(location.search);
 
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState(q);
   const [errors, setErrors] = useState([]);
@@ -20,10 +23,12 @@ const Search = () => {
   const [maxPage, setMaxPage] = useState("");
   const [index, setIndex] = useState(parseInt(page));
   const [redirect, setRedirect] = useState(false);
+  const [redirectMobile, setRedirectMobile] = useState(false);
 
   console.log(q);
 
   const getMovie = useCallback(() => {
+    setRedirectMobile(false);
     setRedirect(false);
     setIsLoading(true);
     axios
@@ -76,10 +81,29 @@ const Search = () => {
     setSearch(q);
     setIndex(page);
     getMovie();
-  }, [getMovie, page, q]);
+    return () => {
+      setRedirect(false);
+    };
+  }, [getMovie, page, q, redirect]);
 
   if (errors.length > 0) {
     return <Error />;
+  }
+
+  const submitHandler = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    let inputCopy = input.trim().toLowerCase();
+
+    if (inputCopy.length > 0) {
+      setRedirectMobile(true);
+    } else {
+      setInput("EMPTY");
+    }
+  };
+
+  if (redirectMobile) {
+    return <Redirect push to={`/search/?page=1&q=${input}`} />;
   }
 
   if (redirect) {
@@ -92,16 +116,32 @@ const Search = () => {
         <LoaderCustom />
       ) : (
         <React.Fragment>
-          <Grid container style={{ marginTop: "10vh" }} spacing={1}>
-            <DisplayMovies movies={movies} />
-          </Grid>
-          <NavigationButtons
-            handleSelectPage={handleSelectPage}
-            handlePrevNext={handlePrevNext}
-            index={index}
-            maxPage={maxPage}
-            pageSelect={pageSelect}
-          />
+          <form onSubmit={e => submitHandler(e)}>
+            <input
+              className='searchM genderInput'
+              type='text'
+              placeholder='Search...'
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onFocus={e => e.target.select()}
+            />
+          </form>
+
+          {!!search && (
+            <React.Fragment>
+              <Grid container className='searchContainer' spacing={1}>
+                <DisplayMovies movies={movies} />
+              </Grid>
+
+              <NavigationButtons
+                handleSelectPage={handleSelectPage}
+                handlePrevNext={handlePrevNext}
+                index={index}
+                maxPage={maxPage}
+                pageSelect={pageSelect}
+              />
+            </React.Fragment>
+          )}
         </React.Fragment>
       )}
     </React.Fragment>

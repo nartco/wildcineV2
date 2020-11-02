@@ -1,16 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 import Error from "../components/Error";
-
 
 import Carousel from "../components/Carousel";
 import "../css/home.css";
 import LoaderCustom from "../components/Loader";
-import '../css/loader.css';
-
-
+import "../css/loader.css";
 
 const Home = () => {
   const [errors, setErrors] = useState([]);
@@ -52,29 +49,34 @@ const Home = () => {
     // };
   }, [getMovies]);
 
-
   if (errors.length > 0) {
     return <Error />;
   }
 
   return (
-    <div className="home">
+    <div className='home'>
       {isLoading ? (
         <LoaderCustom />
       ) : (
         <div>
-          <Link style={{ textDecoration: "none", color: "#26c485" }} to='/'>
+          <Link
+            style={{ textDecoration: "none", color: "#26c485" }}
+            to='/top-rated/?page=1'
+          >
             <h1 className='homeTitle'>Top Rated</h1>{" "}
           </Link>
           <Carousel slides={topRated} play={true} />
           <Link
             style={{ textDecoration: "none", color: "#26c485" }}
-            to='upcoming'
+            to='/upcoming/?page=1'
           >
             <h1 className='homeTitle'>Upcoming</h1>{" "}
           </Link>
-          <Carousel slides={upcoming} play={false}  />
-          <Link style={{ textDecoration: "none", color: "#26c485" }} to='/'>
+          <Carousel slides={upcoming} play={false} />
+          <Link
+            style={{ textDecoration: "none", color: "#26c485" }}
+            to='/popular/?page=1'
+          >
             <h1 className='homeTitle'>Popular</h1>{" "}
           </Link>
           <Carousel slides={popular} play={false} />

@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, withRouter } from "react-router-dom";
 import axios from "axios";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import StarIcon from "@material-ui/icons/Star";
+import ArrowBack from "@material-ui/icons/ArrowBack";
 import Line from "../components/Line";
 import noPoster from "../assets/noposter.jpg";
 import LoaderCustom from "../components/Loader";
 
 import "../css/movieDetails.css";
 
-const MovieDetails = () => {
+const MovieDetails = withRouter(({ history }) => {
+  
   let { id } = useParams();
 
   const [movie, setMovie] = useState(null);
@@ -188,9 +190,18 @@ const MovieDetails = () => {
             </div>
           </React.Fragment>
         )}
+        <button onClick={() => history.goBack()} className='actionsButton backButton'>
+          <ArrowBack
+            style={{
+              fontSize: 50,
+              transition: "0.1s"
+            }}
+            className={"actionsIcon"}
+          />
+        </button>
       </div>
     </div>
   );
-};
+});
 
 export default MovieDetails;

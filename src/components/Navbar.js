@@ -51,7 +51,7 @@ const Navbar = () => {
           <NavLink
             onClick={() => setShow(false)}
             style={{ textDecoration: "none", color: "#fff" }}
-            to='/search'
+            to='/search/?page=1'
           >
             <p className='navSection'>SEARCH</p>
           </NavLink>
