@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import CookieConsent from "react-cookie-consent";
 
 import Error from "../components/Error";
 
@@ -82,6 +83,24 @@ const Home = () => {
           <Carousel slides={popular} play={false} />
         </div>
       )}
+      <CookieConsent
+        location='bottom'
+        buttonText='ok'
+        className="cookiesBanner"
+        style={{ background: "rgba(38, 196, 133, 0.8)", color: "black" }}
+        buttonStyle={{
+          boxShadow: '0px 4px 8px 2px #000000',
+          color: "black",
+          border: '1px solid black',
+          background: "#26c485",
+          fontSize: "17px",
+          borderRadius: 20,
+          textAlign: 'center'
+        }}
+        expires={150}
+      >
+        <p>This website uses cookies to enhance the user experience.{" "}</p>
+      </CookieConsent>
     </div>
   );
 };

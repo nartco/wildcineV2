@@ -3,7 +3,7 @@
 }
 .homeTitle {
   color: #26c485;
- font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   margin-top: 30px;
   margin-bottom: 50px;
   text-align: center;
@@ -11,3 +11,21 @@
   text-shadow: 1px 1px 2px green;
 }
 
+.CookieConsent > div > p {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.CookieConsent > div > button {
+  width: 5rem;
+}
+
+@media all and (max-width: 439px) {
+  .CookieConsent > div > p {
+    text-align: center;
+  }
+  .CookieConsent > div > button {
+    width: 30vw;
+  }
+  .CookieConsent > div:nth-child(2) {
+    margin: auto auto;
+  }
+}

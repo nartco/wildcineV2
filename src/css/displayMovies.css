@@ -39,7 +39,7 @@
 
 @media all and (max-width: 599px) {
   .displayTitle {
-    font-size: 0.9rem;
+    font-size: 0.9rem !important;
   }
   .movieContainers {
     width: 70vw;
