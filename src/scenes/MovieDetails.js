@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useParams, withRouter } from "react-router-dom";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
@@ -10,10 +12,13 @@ import Line from "../components/Line";
 import noPoster from "../assets/noposter.jpg";
 import LoaderCustom from "../components/Loader";
 
+import { toggleFav } from "../store/actions/favoriteAction";
+
 import "../css/movieDetails.css";
 
 const MovieDetails = withRouter(({ history }) => {
-  
+  const favorite = useSelector(state => state.favorite);
+  const dispatch = useDispatch();
   let { id } = useParams();
 
   const [movie, setMovie] = useState(null);
@@ -96,14 +101,28 @@ const MovieDetails = withRouter(({ history }) => {
         className='detailsImage'
       />
       <div className='detailsInfos'>
-        <button onClick={() => {}} className='actionsButton'>
-          <StarBorderIcon
-            style={{
-              fontSize: 50,
-              transition: "0.1s"
-            }}
-            className={"actionsIcon"}
-          />
+        <button
+          onClick={() => dispatch(toggleFav(movie.id))}
+          className='actionsButton'
+        >
+          {movie &&
+          favorite.findIndex(id => id === movie.id.toString()) !== -1 ? (
+            <StarIcon
+              style={{
+                fontSize: 50,
+                transition: "0.1s"
+              }}
+              className={"actionsIcon"}
+            />
+          ) : (
+            <StarBorderIcon
+              style={{
+                fontSize: 50,
+                transition: "0.1s"
+              }}
+              className={"actionsIcon"}
+            />
+          )}
         </button>
         <h2 className='display'>{movie.original_title}</h2>
         <p>
@@ -190,7 +209,10 @@ const MovieDetails = withRouter(({ history }) => {
             </div>
           </React.Fragment>
         )}
-        <button onClick={() => history.goBack()} className='actionsButton backButton'>
+        <button
+          onClick={() => history.goBack()}
+          className='actionsButton backButton'
+        >
           <ArrowBack
             style={{
               fontSize: 50,

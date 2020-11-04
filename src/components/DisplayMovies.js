@@ -6,7 +6,6 @@ import "../css/displayMovies.css";
 
 const DisplayMovie = props => {
   const { movies } = props;
-  console.log(movies)
   if (movies.length === 0) {
     return (
       <div className='movieContainers'>
