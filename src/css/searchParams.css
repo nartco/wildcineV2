@@ -145,8 +145,8 @@ input[type=number] {
 
 
 @media not all and (min-resolution: 0.001dpcm) {
-  .genderInput {
-    text-indent: 50%;
+  .genderSort {
+    text-indent: 2vw;
   }
   select {
     -webkit-appearance: none;

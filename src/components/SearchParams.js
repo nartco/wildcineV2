@@ -259,7 +259,7 @@ const SearchParams = React.forwardRef((props, ref) => {
         <select
           value={sortBy}
           onChange={e => setSortBy(e.target.value)}
-          className='genderInput'
+          className='genderInput genderSort'
         >
           <option value='popularity.asc'>Popularity | asc</option>
           <option value='release_date.asc'>Release date | asc</option>
