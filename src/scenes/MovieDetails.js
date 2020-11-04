@@ -161,6 +161,7 @@ const MovieDetails = withRouter(({ history }) => {
         video.findIndex(video => video.type === "Trailer") !== -1 ? (
           <div className='trailer'>
             <iframe
+            title={movie.original_title}
               width='500'
               height='345'
               src={`https://www.youtube.com/embed/${video[video.findIndex(video => video.type === "Trailer")].key}`}

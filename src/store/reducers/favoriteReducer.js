@@ -1,7 +1,4 @@
-import React from "react";
 import { TOGGLE_FAVORITE } from "../actions/favoriteAction";
-import reduxCookiesMiddleware from "redux-cookies-middleware";
-import getStateFromCookies from "redux-cookies-middleware";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();

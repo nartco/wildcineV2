@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Error from "../components/Error";
@@ -14,37 +14,33 @@ const Favorite = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState([]);
 
-  
-
-  const getMovie = useCallback(() => {
-    setIsLoading(true);
-    let moviesCopy = [...movies];
-    favorite.map((id, i) => {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=en-US`
-        )
-        .then(response => {
-          moviesCopy.push(response.data);
-          if (i + 1 === favorite.length) setIsLoading(false);
-        })
-        .catch(error => {
-          setErrors(errors.concat(error.message));
-          if (i + 1 === favorite.length) setIsLoading(false);
-        });
-    });
-
-    return setMovies(moviesCopy);
-  }, [errors, favorite]);
-
   useEffect(() => {
-    getMovie();
-  }, [getMovie]);
+    setIsLoading(true);
+    let moviesCopy = [];
+    favorite.map(
+      (id, i) => {
+        axios
+          .get(
+            `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=en-US`
+          )
+          .then(response => {
+            moviesCopy.push(response.data);
+            if (i + 1 === favorite.length) setIsLoading(false);
+          })
+          .catch(error => {
+            setErrors(errors.concat(error.message));
+            if (i + 1 === favorite.length) setIsLoading(false);
+          });
+          return setMovies(moviesCopy);
+      },
+     
+    );
+   
+  },  [ favorite, errors]);
 
   if (errors.length > 0) {
     return <Error />;
   }
-  
 
   if (!(favorite.length > 0) || !favorite)
     return (

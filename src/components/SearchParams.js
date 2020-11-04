@@ -37,9 +37,7 @@ const SearchParams = React.forwardRef((props, ref) => {
       return setError(errorCopy);
     }
     if (format.test(e) || !!!ISO6391.getCode(e)) {
-      index !== -1
-        ? (errorCopy = errorCopy)
-        : (errorCopy = [...error, "language"]);
+      if (index !== -1) errorCopy = errorCopy = [...error, "language"];
       setDisabled(true);
     } else {
       errorCopy.length > 1
@@ -66,7 +64,7 @@ const SearchParams = React.forwardRef((props, ref) => {
 
     if (!(e >= 1883 && e <= actualYear + 25)) {
       setDisabled(true);
-      index !== -1 ? (errorCopy = errorCopy) : (errorCopy = [...error, "year"]);
+      if (index !== -1) errorCopy = [...error, "year"];
     } else {
       errorCopy.length > 1
         ? (errorCopy = errorCopy.splice(index, 1))
