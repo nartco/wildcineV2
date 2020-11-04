@@ -17,26 +17,22 @@ const Favorite = () => {
   useEffect(() => {
     setIsLoading(true);
     let moviesCopy = [];
-    favorite.map(
-      (id, i) => {
-        axios
-          .get(
-            `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=en-US`
-          )
-          .then(response => {
-            moviesCopy.push(response.data);
-            if (i + 1 === favorite.length) setIsLoading(false);
-          })
-          .catch(error => {
-            setErrors(errors.concat(error.message));
-            if (i + 1 === favorite.length) setIsLoading(false);
-          });
-          return setMovies(moviesCopy);
-      },
-     
-    );
-   
-  },  [ favorite, errors]);
+    favorite.map((id, i) => {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=en-US`
+        )
+        .then(response => {
+          moviesCopy.push(response.data);
+          if (i + 1 === favorite.length) setIsLoading(false);
+        })
+        .catch(error => {
+          setErrors(errors.concat(error.message));
+          if (i + 1 === favorite.length) setIsLoading(false);
+        });
+      return setMovies(moviesCopy);
+    });
+  }, [favorite, errors]);
 
   if (errors.length > 0) {
     return <Error />;
